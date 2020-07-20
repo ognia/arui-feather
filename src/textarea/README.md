@@ -1,5 +1,23 @@
+Новые (type=filled)
 ```jsx
-<Textarea placeholder='Введите назначение платежа' />
+import TextareaIcon from 'arui-feather/icon/ui/info';
+<div className='row'>
+    <div className='column'>
+        <Textarea
+            label='Лейбл'
+            view='filled'
+        />
+    </div>
+    <div className='column'>
+        <Textarea
+            label='Лейбл'
+            view='filled'
+            icon={
+                <TextareaIcon />
+            }
+        />
+    </div>
+</div>
 ```
 
 ```jsx
@@ -9,11 +27,23 @@
 />
 ```
 
+С лейблами
 ```jsx
-<Textarea
-    placeholder='Введите назначение платежа'
-    autosize={ true }
-/>
+const sizes = ['s', 'm', 'l', 'xl'];
+
+<div>
+    {
+        sizes.map(size => (
+            <div className='row' key={ size }>
+                <Textarea
+                    label='Назначение платежа'
+                    placeholder='Введите назначение платежа'
+                    size={ size }
+                />
+            </div>
+        ))
+    }
+</div>
 ```
 
 ## Use as controlled
@@ -37,6 +67,7 @@ function handleChangeAsync(value) {
     />
 </div>
 ```
+
 Если вам не нужно модифицировать введенные пользователем данные -
 используйте параметр defaultValue для того чтобы задать начальное значение
 и синхронизируйте значение компонента с нужным хранилищем

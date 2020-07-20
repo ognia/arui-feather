@@ -1,11 +1,14 @@
 ```jsx
+import Heading from 'arui-feather/heading';
+
 const MENU_1 = [
     {
         type: 'item',
         content: 'Тарифы',
         value: 'value1',
         props: {
-            url: '#1'
+            url: '#1',
+            view: 'underlined'
         }
     },
     {
@@ -13,7 +16,8 @@ const MENU_1 = [
         content: 'Депозиты',
         value: 'value2',
         props: {
-            url: '#2'
+            url: '#2',
+            view: 'underlined'
         }
     },
     {
@@ -22,7 +26,8 @@ const MENU_1 = [
         value: 'value3',
         props: {
             url: '#3',
-            disabled: true
+            disabled: true,
+            view: 'underlined'
         }
     }
 ];

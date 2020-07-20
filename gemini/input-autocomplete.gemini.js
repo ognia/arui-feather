@@ -15,27 +15,27 @@ const OPTIONS = [
     { value: 'Instagram' },
     { value: 'Tumblr' },
     { value: 'Flickr' },
-    { value: 'Odnoklassniki' }
+    { value: 'Odnoklassniki' },
 ];
 
 const PROP_SETS = [
     { placeholder: 'Input', opened: true, options: OPTIONS },
-    { placeholder: 'Input', disabled: true }
+    { placeholder: 'Input', disabled: true },
 ];
 
-geminiReact.suite(NAME, function () {
+geminiReact.suite(NAME, () => {
     THEMES.forEach((theme) => {
-        let themeSelector = `${NAME}_theme_${theme}`;
+        const themeSelector = `${NAME}_theme_${theme}`;
 
         SIZES.forEach((size) => {
-            let sizeSelector = `${NAME}_size_${size}`;
+            const sizeSelector = `${NAME}_size_${size}`;
 
             PROP_SETS.forEach((set, index) => {
-                let selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
+                const selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
 
-                geminiReact.suite(selector, function (suite) {
-                    let props = { theme, size, ...set };
-                    let template = (
+                geminiReact.suite(selector, (suite) => {
+                    const props = { theme, size, ...set };
+                    const template = (
                         <GeminiBox theme={ theme }>
                             <InputAutocomplete { ...props } />
                         </GeminiBox>
@@ -50,7 +50,7 @@ geminiReact.suite(NAME, function () {
                             .setExtraCaptureElements(['.popup'])
                             .render(template)
                             .capture('plain')
-                            .capture('focused', function (actions, find) {
+                            .capture('focused', (actions, find) => {
                                 actions.focus(find('.input__control'));
                             });
                     }

@@ -3,18 +3,27 @@ import Input from '../src/input';
 import Radio from '../src/radio';
 import RadioGroup from '../src/radio-group';
 
-function renderAddons(size) {
-    let buttonControlNodes = [1, 2, 3].map(item => (
+function renderAddons(inputSize) {
+    let radioSize;
+
+    switch (inputSize) {
+    case 's':
+    case 'm': radioSize = 's'; break;
+    case 'l': radioSize = 'm'; break;
+    case 'xl': radioSize = 'l'; break;
+    }
+
+    const buttonControlNodes = [1, 2, 3].map((item) => (
         <Radio
             key={ item }
-            size={ size }
-            type={ 'button' }
+            size={ radioSize }
+            type="button"
             text={ item }
         />
     ));
 
     return (
-        <RadioGroup type={ 'button' }>
+        <RadioGroup type="button">
             { buttonControlNodes }
         </RadioGroup>
     );
@@ -26,48 +35,48 @@ const SIZES = process.env.ALL_SIZES ? ['s', 'm', 'l', 'xl'] : ['m'];
 
 const PROP_SETS = [
     {
-        placeholder: 'Input'
+        placeholder: 'Input',
     },
     {
         placeholder: 'Input with width available',
-        width: 'available'
+        width: 'available',
     },
     {
         placeholder: 'Input',
-        error: 'Something went wrong'
+        error: 'Something went wrong',
     },
     {
         placeholder: 'Input',
-        clear: true
+        clear: true,
     },
     {
-        disabled: true
-    }
+        disabled: true,
+    },
 ];
 
-geminiReact.suite(NAME, function () {
+geminiReact.suite(NAME, () => {
     THEMES.forEach((theme) => {
-        let themeSelector = `${NAME}_theme_${theme}`;
+        const themeSelector = `${NAME}_theme_${theme}`;
 
         SIZES.forEach((size) => {
-            let sizeSelector = `${NAME}_size_${size}`;
+            const sizeSelector = `${NAME}_size_${size}`;
 
             PROP_SETS.forEach((set, index) => {
-                let selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
+                const selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
 
                 if (set.view === 'line' && size !== 'm') {
                     return;
                 }
 
-                geminiReact.suite(selector, function (suite) {
-                    let props = {
+                geminiReact.suite(selector, (suite) => {
+                    const props = {
                         theme,
                         size,
                         rightAddons: (index === 0 || index === 1) && renderAddons(size),
                         leftAddons: (index === 0 || index === 1) && renderAddons(size),
-                        ...set
+                        ...set,
                     };
-                    let template = (
+                    const template = (
                         <GeminiBox theme={ theme } width={ set.width }>
                             <Input { ...props } />
                         </GeminiBox>
@@ -87,7 +96,7 @@ geminiReact.suite(NAME, function () {
                             .capture('pressed', function (actions) {
                                 actions.mouseDown(this.renderedComponent);
                             })
-                            .capture('focused', function (actions, find) {
+                            .capture('focused', (actions, find) => {
                                 actions.focus(find('.input__control'));
                             });
                     }

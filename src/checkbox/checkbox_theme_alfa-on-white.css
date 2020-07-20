@@ -2,57 +2,70 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
 
 .checkbox_theme_alfa-on-white {
     color: var(--color-content-alfa-on-white);
 
     .checkbox__box {
-        transition: all 200ms ease;
-
-        background: var(--color-background-control-alfa-on-white);
-
-        border: 1px solid rgba(0, 0, 0, .3);
+        background: var(--color-dark-indigo-05);
+        border: 1px solid var(--color-dark-indigo-60);
     }
 
     &.checkbox_checked {
         .checkbox__box {
-            border-color: transparent;
-            background: var(--color-accent-translucent);
+            background: rgba(239, 49, 36, 0.85);
+            border-color: var(--color-dark-indigo-25-deprecated);
         }
 
-        &.checkbox_hovered .checkbox__box {
-            border-color: transparent;
-            background: var(--color-accent);
+        &.checkbox_hovered .checkbox__box,
+        &.checkbox_focused .checkbox__box {
+            background: var(--color-red-brand);
         }
     }
 
-    &.checkbox_focused,
+    &.checkbox_focused {
+        .checkbox__box {
+            background: var(--color-dark-indigo-10);
+
+            &:after {
+                border-color: rgba(11, 31, 53, 0.95);
+            }
+        }
+    }
+
     &.checkbox_hovered {
         .checkbox__box {
-            border-color: var(--color-content-alfa-on-white);
+            background: var(--color-dark-indigo-10);
         }
-    }
-
-    &.checkbox_focused .checkbox__box {
-        box-shadow: 0 0 0 1px var(--color-content-alfa-on-white);
     }
 
     &.checkbox_disabled {
-        color: var(--color-content-minor-alfa-on-white);
+        color: var(--color-content-disabled-alfa-on-white);
 
         .checkbox__box {
+            background: var(--color-dark-indigo-20-deprecated);
             border-color: transparent;
-            background: var(--color-background-control-disabled-alfa-on-white);
+        }
+    }
+
+    &.checkbox:active {
+        .checkbox__box {
+            background: var(--color-dark-indigo-20-deprecated);
         }
 
-        &.checkbox_checked .checkbox__box:after {
-            background-image: url(./images/checkbox__box_disabled.svg);
-            opacity: var(--opacity-disabled);
+        &.checkbox_checked {
+            .checkbox__box,
+            &.checkbox_hovered .checkbox__box,
+            &.checkbox_focused .checkbox__box {
+                background: var(--color-accent-alt);
+            }
         }
 
-        &.checkbox_checked.checkbox_indeterminate .checkbox__box:after {
-            background-image: url(./images/checkbox__box_indeterminate-disabled.svg);
+        &.checkbox_disabled {
+            .checkbox__box {
+                background: var(--color-dark-indigo-20-deprecated);
+            }
         }
     }
 }

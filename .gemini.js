@@ -1,6 +1,19 @@
 global.React = require('react');
 
-const IS_TRAVIS_CRON_BUILD = process.env.TRAVIS_EVENT_TYPE === 'cron';
+const fs = require('fs');
+
+const ALL_BROWSERS = !!process.env.ALL_BROWSERS;
+const FILE_REGEXP = /\.gemini.\js?$/;
+
+let sets = fs.readdirSync('./gemini/')
+    .filter(item => FILE_REGEXP.test(item))
+    .map(item => item.replace(FILE_REGEXP, ''))
+    .reduce((result, item) => {
+        result[item] = {
+            files: [`gemini/${item}.gemini.js`]
+        };
+        return result;
+    }, {});
 
 let config = {
     gridUrl: 'http://ondemand.saucelabs.com/wd/hub',
@@ -8,7 +21,7 @@ let config = {
     windowSize: '1024x768',
 
     httpTimeout: 60000,
-    retry: 2,
+    retry: 3,
     sessionsPerBrowser: 3,
     suitesPerSession: 150,
 
@@ -16,43 +29,48 @@ let config = {
         chromeWin7: {
             desiredCapabilities: {
                 browserName: 'chrome',
-                version: '57',
+                version: '70',
                 platform: 'Windows 7'
             }
         }
     },
 
+    sets,
+
     system: {
         debug: false,
         exclude: [
-            '*demo/',
-            'docs/',
-            'gemini/screens/',
-            'gemini-*/',
+            'demo/',
+            './gemini/screens/',
+            './gemini-*/',
             'node_modules/',
-            'src/'
+            './src/'
         ],
         plugins: {
-            babel: true,
-            'html-reporter': {},
+            babel7: {
+                extensions: [".es6", ".es", ".js", ".mjs", '.ts', '.tsx'],
+            },
+            'html-reporter/gemini': {
+                defaultView: 'failed',
+                path: './gemini-report'
+            },
             optipng: true,
             react: {
-                jsModules: [
-                    './gemini-utils/gemini-main.css'
-                ],
+                jsModules: ['./gemini-utils/gemini-main.css'],
                 port: 8668,
                 staticRoot: './',
-                webpackConfig: './webpack.gemini.config.js'
+                webpackConfig: './gemini/webpack.gemini.config.js'
             },
             'saucelabs-info': {}
         },
         projectRoot: './',
-        tempDir: './'
-    }
+        tempDir: './gemini/'
+    },
+    screenshotsDir: './gemini/screens/'
 };
 
-if (IS_TRAVIS_CRON_BUILD) {
-    config.system.plugins.react.jsModules.unshift('./.build/polyfills.js');
+if (ALL_BROWSERS) {
+    config.system.plugins.react.jsModules.unshift('./src/polyfills.js');
 
     Object.assign(config.browsers, {
         ie10Win7: {

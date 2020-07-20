@@ -9,27 +9,32 @@ const AMOUNT = {
     value: 123535,
     currency: {
         code: 'RUR',
-        minority: 100
-    }
+        minority: 100,
+    },
 };
 
 const PROP_SETS = [
     { isHeading: true },
-    { isHeading: false }
+    { isHeading: false },
 ];
 
-geminiReact.suite(NAME, function () {
+geminiReact.suite(NAME, () => {
     THEMES.forEach((theme) => {
-        let themeSelector = `${NAME}_theme_${theme}`;
+        const themeSelector = `${NAME}_theme_${theme}`;
 
         SIZES.forEach((size) => {
             PROP_SETS.forEach((isHeadingProp, index) => {
-                let sizeSelector = `${NAME}_size_${size}`;
-                let selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
+                const sizeSelector = `${NAME}_size_${size}`;
+                const selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
 
-                geminiReact.suite(selector, function (suite) {
-                    let props = { theme, size, amount: AMOUNT, isHeading: isHeadingProp.isHeading };
-                    let template = (
+                geminiReact.suite(selector, (suite) => {
+                    const props = {
+                        theme,
+                        size,
+                        amount: AMOUNT,
+                        isHeading: isHeadingProp.isHeading,
+                    };
+                    const template = (
                         <GeminiBox theme={ theme }>
                             <Amount { ...props } />
                         </GeminiBox>

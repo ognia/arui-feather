@@ -2,27 +2,37 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
 
 .popup {
-    position: absolute;
     visibility: hidden;
-
-    box-sizing: border-box;
-
-    z-index: 9999;
-
+    position: absolute;
+    width: auto;
     font-family: var(--font);
-    font-weight: var(--font-weight);
-    line-height: 1.2;
-
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-condensed);
     border-radius: var(--border-radius-control);
+    overflow: hidden;
 
     /* Чтобы попап не прокликивался и браузер не рисовал лишний скролл */
     transform: translate(-9999px, -9999px);
 
-    /* Чтобы IE9 не рисовал лишний скролл */
-    clip: rect(0, 0, 0, 0);
+    z-index: 9999;
+
+    &,
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+
+    &__container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: var(--border-radius-control);
+        z-index: 2;
+    }
 
     &_size_s {
         font-size: var(--font-size-s);
@@ -47,35 +57,45 @@
     }
 
     &_height_available {
-        bottom: 0;
-        top: 0 !important;
-
-        width: 300px;
-
-        position: fixed;
-        padding: 5px 23px;
-
         opacity: 0;
-
-        transition: opacity 400ms ease;
+        position: fixed;
+        top: 0 !important;
+        bottom: 0;
+        width: 300px;
         border-radius: 0;
+        transition: opacity 400ms ease;
+
+        .popup__content {
+            padding: var(--gap-s) var(--gap-xl);
+        }
     }
 
     &_height_available.popup_visible {
+        opacity: var(--opacity-active);
         margin: 0 0 0 -35px;
-        opacity: 1;
     }
 
     &_height_adaptive &__gradient,
     &_target_screen &__gradient {
         position: absolute;
-        right: 0;
-        bottom: 0;
         left: 0;
-        border-bottom-right-radius: 4px;
-        border-bottom-left-radius: 4px;
+        width: 100%;
         pointer-events: none;
         transition: height 200ms ease-in-out;
+        z-index: 3;
+        border-radius: var(--border-radius-control);
+
+        &_top {
+            top: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &_bottom {
+            bottom: 0;
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
     }
 
     &_height_adaptive.popup_size_s &__gradient,
@@ -100,14 +120,10 @@
 
     &_height_adaptive &__inner,
     &_target_screen &__inner {
-        width: 100%;
-        height: 100%;
         -webkit-overflow-scrolling: touch;
         overflow-x: hidden;
         overflow-y: auto;
-    }
-
-    &_height_adaptive &__container {
+        width: 100%;
         height: 100%;
     }
 
@@ -116,20 +132,22 @@
         position: relative;
     }
 
-    &_padded.popup_size_s &__content {
-        padding: 7px 12px 8px;
-    }
+    &_padded:not(.popup_height_available) {
+        &.popup_size_s .popup__content {
+            padding: 7px var(--gap-s) var(--gap-xs);
+        }
 
-    &_padded.popup_size_m &__content {
-        padding: 10px 14px 11px;
-    }
+        &.popup_size_m .popup__content {
+            padding: 10px 14px 11px;
+        }
 
-    &_padded.popup_size_l &__content {
-        padding: 14px 18px 15px;
-    }
+        &.popup_size_l .popup__content {
+            padding: 14px 18px 15px;
+        }
 
-    &_padded.popup_size_xl &__content {
-        padding: 17px 22px;
+        &.popup_size_xl .popup__content {
+            padding: 17px 22px;
+        }
     }
 
     &_target_screen {
@@ -140,7 +158,7 @@
         .popup__container {
             display: flex;
             flex-direction: column;
-            height: 100%;
+            border-radius: 0;
         }
 
         .popup__content {
@@ -148,85 +166,182 @@
             transform: translateZ(0);
         }
     }
+
+    &_overflow {
+        overflow-y: scroll;
+    }
 }
 
 .popup_type_tooltip {
     &:before {
+        content: "";
+        position: absolute;
         width: 0;
         height: 0;
-        content: '';
-        position: absolute;
-        display: inline-block;
         margin: -7px;
         border-style: solid;
         border-width: 7px;
+        filter: drop-shadow(0 0 2px var(--shadow-light-color));
+        z-index: 1;
     }
 
     /* top */
-    &.popup_direction_top-left:before { bottom: -7px; }
-    &.popup_direction_top-center:before { bottom: -7px; left: 50%; }
-    &.popup_direction_top-right:before { bottom: -7px; }
+    &.popup_direction_top-left:before {
+        bottom: -7px;
+    }
+    &.popup_direction_top-center:before {
+        bottom: -7px;
+        left: 50%;
+    }
+    &.popup_direction_top-right:before {
+        bottom: -7px;
+    }
 
-    &.popup_size_s.popup_direction_top-left:before { left: 15px; }
-    &.popup_size_s.popup_direction_top-right:before { right: 15px; }
+    &.popup_size_s.popup_direction_top-left:before {
+        left: 15px;
+    }
+    &.popup_size_s.popup_direction_top-right:before {
+        right: 15px;
+    }
 
-    &.popup_size_m.popup_direction_top-left:before { left: 20px; }
-    &.popup_size_m.popup_direction_top-right:before { right: 20px; }
+    &.popup_size_m.popup_direction_top-left:before {
+        left: 20px;
+    }
+    &.popup_size_m.popup_direction_top-right:before {
+        right: 20px;
+    }
 
-    &.popup_size_l.popup_direction_top-left:before { left: 25px; }
-    &.popup_size_l.popup_direction_top-right:before { right: 25px; }
+    &.popup_size_l.popup_direction_top-left:before {
+        left: 25px;
+    }
+    &.popup_size_l.popup_direction_top-right:before {
+        right: 25px;
+    }
 
-    &.popup_size_xl.popup_direction_top-left:before { left: 30px; }
-    &.popup_size_xl.popup_direction_top-right:before { right: 30px; }
+    &.popup_size_xl.popup_direction_top-left:before {
+        left: 30px;
+    }
+    &.popup_size_xl.popup_direction_top-right:before {
+        right: 30px;
+    }
 
     /* left */
-    &.popup_direction_left-top:before { right: -7px; }
-    &.popup_direction_left-center:before { top: 50%; right: -7px; }
-    &.popup_direction_left-bottom:before { right: -7px; }
+    &.popup_direction_left-top:before {
+        right: -7px;
+    }
+    &.popup_direction_left-center:before {
+        top: 50%;
+        right: -7px;
+    }
+    &.popup_direction_left-bottom:before {
+        right: -7px;
+    }
 
-    &.popup_size_s.popup_direction_left-top:before { top: 15px; }
-    &.popup_size_s.popup_direction_left-bottom:before { bottom: 15px; }
+    &.popup_size_s.popup_direction_left-top:before {
+        top: 15px;
+    }
+    &.popup_size_s.popup_direction_left-bottom:before {
+        bottom: 15px;
+    }
 
-    &.popup_size_m.popup_direction_left-top:before { top: 20px; }
-    &.popup_size_m.popup_direction_left-bottom:before { bottom: 20px; }
+    &.popup_size_m.popup_direction_left-top:before {
+        top: 20px;
+    }
+    &.popup_size_m.popup_direction_left-bottom:before {
+        bottom: 20px;
+    }
 
-    &.popup_size_l.popup_direction_left-top:before { top: 25px; }
-    &.popup_size_l.popup_direction_left-bottom:before { bottom: 25px; }
+    &.popup_size_l.popup_direction_left-top:before {
+        top: 25px;
+    }
+    &.popup_size_l.popup_direction_left-bottom:before {
+        bottom: 25px;
+    }
 
-    &.popup_size_xl.popup_direction_left-top:before { top: 30px; }
-    &.popup_size_xl.popup_direction_left-bottom:before { bottom: 30px; }
+    &.popup_size_xl.popup_direction_left-top:before {
+        top: 30px;
+    }
+    &.popup_size_xl.popup_direction_left-bottom:before {
+        bottom: 30px;
+    }
 
     /* right */
-    &.popup_direction_right-top:before { left: -7px; }
-    &.popup_direction_right-center:before { top: 50%; left: -7px; }
-    &.popup_direction_right-bottom:before { left: -7px; }
+    &.popup_direction_right-top:before {
+        left: -7px;
+    }
+    &.popup_direction_right-center:before {
+        top: 50%;
+        left: -7px;
+    }
+    &.popup_direction_right-bottom:before {
+        left: -7px;
+    }
 
-    &.popup_size_s.popup_direction_right-top:before { top: 15px; }
-    &.popup_size_s.popup_direction_right-bottom:before { bottom: 15px; }
+    &.popup_size_s.popup_direction_right-top:before {
+        top: 15px;
+    }
+    &.popup_size_s.popup_direction_right-bottom:before {
+        bottom: 15px;
+    }
 
-    &.popup_size_m.popup_direction_right-top:before { top: 20px; }
-    &.popup_size_m.popup_direction_right-bottom:before { bottom: 20px; }
+    &.popup_size_m.popup_direction_right-top:before {
+        top: 20px;
+    }
+    &.popup_size_m.popup_direction_right-bottom:before {
+        bottom: 20px;
+    }
 
-    &.popup_size_l.popup_direction_right-top:before { top: 25px; }
-    &.popup_size_l.popup_direction_right-bottom:before { bottom: 25px; }
+    &.popup_size_l.popup_direction_right-top:before {
+        top: 25px;
+    }
+    &.popup_size_l.popup_direction_right-bottom:before {
+        bottom: 25px;
+    }
 
-    &.popup_size_xl.popup_direction_right-top:before { top: 30px; }
-    &.popup_size_xl.popup_direction_right-bottom:before { bottom: 30px; }
+    &.popup_size_xl.popup_direction_right-top:before {
+        top: 30px;
+    }
+    &.popup_size_xl.popup_direction_right-bottom:before {
+        bottom: 30px;
+    }
 
     /* bottom */
-    &.popup_direction_bottom-left:before { top: -7px; }
-    &.popup_direction_bottom-center:before { top: -7px; left: 50%; }
-    &.popup_direction_bottom-right:before { top: -7px; }
+    &.popup_direction_bottom-left:before {
+        top: -7px;
+    }
+    &.popup_direction_bottom-center:before {
+        top: -7px;
+        left: 50%;
+    }
+    &.popup_direction_bottom-right:before {
+        top: -7px;
+    }
 
-    &.popup_size_s.popup_direction_bottom-left:before { left: 15px; }
-    &.popup_size_s.popup_direction_bottom-right:before { right: 15px; }
+    &.popup_size_s.popup_direction_bottom-left:before {
+        left: 15px;
+    }
+    &.popup_size_s.popup_direction_bottom-right:before {
+        right: 15px;
+    }
 
-    &.popup_size_m.popup_direction_bottom-left:before { left: 20px; }
-    &.popup_size_m.popup_direction_bottom-right:before { right: 20px; }
+    &.popup_size_m.popup_direction_bottom-left:before {
+        left: 20px;
+    }
+    &.popup_size_m.popup_direction_bottom-right:before {
+        right: 20px;
+    }
 
-    &.popup_size_l.popup_direction_bottom-left:before { left: 25px; }
-    &.popup_size_l.popup_direction_bottom-right:before { right: 25px; }
+    &.popup_size_l.popup_direction_bottom-left:before {
+        left: 25px;
+    }
+    &.popup_size_l.popup_direction_bottom-right:before {
+        right: 25px;
+    }
 
-    &.popup_size_xl.popup_direction_bottom-left:before { left: 30px; }
-    &.popup_size_xl.popup_direction_bottom-right:before { right: 30px; }
+    &.popup_size_xl.popup_direction_bottom-left:before {
+        left: 30px;
+    }
+    &.popup_size_xl.popup_direction_bottom-right:before {
+        right: 30px;
+    }
 }

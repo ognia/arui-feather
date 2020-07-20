@@ -15,25 +15,26 @@ const SIZES = process.env.ALL_SIZES ? ['s', 'm', 'l', 'xl'] : ['m'];
 const PROP_SETS = [
     {
         directions: ['top-center', 'bottom-left'],
-        type: 'tooltip'
+        type: 'tooltip',
     },
     {
         directions: ['right-center', 'right-top', 'right-bottom'],
         type: 'tooltip',
-        mainOffset: 13
+        mainOffset: 13,
     },
     {
-        target: 'position'
-    }
+        target: 'position',
+    },
 ];
 
 class TestButtonPopup extends React.Component {
     static propTypes = {
         target: Type.oneOf(['anchor', 'position']),
-        size: Type.oneOf(['s', 'm', 'l', 'xl'])
+        size: Type.oneOf(['s', 'm', 'l', 'xl']),
     };
 
     target;
+
     popup;
 
     componentDidMount() {
@@ -48,14 +49,18 @@ class TestButtonPopup extends React.Component {
         return (
             <div style={ { display: 'inline-block' } }>
                 <Button
-                    ref={ (target) => { this.target = target; } }
+                    ref={ (target) => {
+                        this.target = target;
+                    } }
                     size={ this.props.size }
-                    theme='alfa-on-white'
+                    theme="alfa-on-white"
                 >
                     Button
                 </Button>
                 <Popup
-                    ref={ (popup) => { this.popup = popup; } }
+                    ref={ (popup) => {
+                        this.popup = popup;
+                    } }
                     visible={ true }
                     { ...this.props }
                 >
@@ -83,20 +88,20 @@ class TestButtonPopupContainer extends React.Component {
     }
 }
 
-geminiReact.suite(NAME, function () {
+geminiReact.suite(NAME, () => {
     THEMES.forEach((theme) => {
-        let themeSelector = `${NAME}_theme_${theme}`;
-        let providerSelector = `${themeSelector}.${NAME}_container-provider`;
+        const themeSelector = `${NAME}_theme_${theme}`;
+        const providerSelector = `${themeSelector}.${NAME}_container-provider`;
 
         SIZES.forEach((size) => {
-            let sizeSelector = `${NAME}_size_${size}`;
+            const sizeSelector = `${NAME}_size_${size}`;
 
             PROP_SETS.forEach((set, index) => {
-                let selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
+                const selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
 
-                geminiReact.suite(selector, function (suite) {
-                    let props = { theme, size, ...set };
-                    let template = (
+                geminiReact.suite(selector, (suite) => {
+                    const props = { theme, size, ...set };
+                    const template = (
                         <ThemeProvider theme={ theme }>
                             <TestButtonPopup { ...props } />
                         </ThemeProvider>
@@ -110,8 +115,8 @@ geminiReact.suite(NAME, function () {
             });
         });
 
-        geminiReact.suite(providerSelector, function (suite) {
-            let template = (
+        geminiReact.suite(providerSelector, (suite) => {
+            const template = (
                 <ThemeProvider theme={ theme }>
                     <TestButtonPopupContainer />
                 </ThemeProvider>

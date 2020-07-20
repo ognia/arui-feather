@@ -1,114 +1,103 @@
 <img align="left" width="140" height="140" title="arui-feather"
      src="https://rawgit.com/alfa-laboratory/arui-feather/master/logo.svg" />
 
-Alfa Bank UI lightweight library
-================================
+# Alfa-Bank UI Library
 
-[![NPM version][npm-img]][npm] [![Travis Build Status][travis-img]][travis] [![AppVeyor Build Status][appveyor-img]][appveyor] [![Greenkeeper badge][greenkeeper-img]][greenkeeper]
+[![npm][npm-img]][npm]
+[![license][license-img]][license]
+[![travis][travis-img]][travis]
+[![appveyor][appveyor-img]][appveyor]
+<br />
+[![coveralls][coveralls-img]][coveralls]
 
-[appveyor-img]:    https://img.shields.io/appveyor/ci/teryaew/arui-feather/master.svg?label=win
-[greenkeeper-img]: https://badges.greenkeeper.io/alfa-laboratory/arui-feather.svg
-[npm-img]:         https://img.shields.io/npm/v/arui-feather.svg
-[travis-img]:      https://img.shields.io/travis/alfa-laboratory/arui-feather/master.svg?label=unix
-[appveyor]:        https://ci.appveyor.com/project/teryaew/arui-feather
-[greenkeeper]:     https://greenkeeper.io
-[npm]:             https://www.npmjs.org/package/arui-feather
-[travis]:          https://travis-ci.org/alfa-laboratory/arui-feather?branch=master
+[appveyor]: https://ci.appveyor.com/project/teryaew/arui-feather
+[appveyor-img]: https://img.shields.io/appveyor/ci/teryaew/arui-feather/master.svg?label=win
+[coveralls]: https://coveralls.io/github/alfa-laboratory/arui-feather?branch=master
+[coveralls-img]: https://coveralls.io/repos/github/alfa-laboratory/arui-feather/badge.svg?branch=master
+[license]: https://opensource.org/licenses/MPL-2.0
+[license-img]: https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg
+[npm]: https://www.npmjs.org/package/arui-feather
+[npm-img]: https://img.shields.io/npm/v/arui-feather.svg
+[travis]: https://travis-ci.org/alfa-laboratory/arui-feather?branch=master
+[travis-img]: https://img.shields.io/travis/alfa-laboratory/arui-feather/master.svg?label=unix
 
 <br />
 
 arui-feather — это библиотека React компонентов для создания веб-интерфейсов.
 
-Вы можете посмотреть примеры использования на нашем [сайте с документацией](https://alfa-laboratory.github.io/arui-feather/styleguide/)
+Вы можете посмотреть примеры использования на нашем [сайте с документацией](https://alfa-laboratory.github.io/arui-feather/styleguide/).
 
-Установка
----------
+## Установка
+
 arui-feather доступен как [npm-пакет](https://www.npmjs.com/package/arui-feather).
 
-```
+```sh
 npm install arui-feather --save
 ```
 
-Поддерживаемые браузеры
------------------------
+## Поддерживаемые браузеры
 
 **Desktop**
 
-  * Chrome *(две последние стабильные версии)*
-  * Edge *(две последние стабильные версии)*
-  * Firefox *(две последние стабильные версии)*
-  * IE 10+
-  * Opera *(две последние стабильные версии)*
-  * Safari *(две последние стабильные версии)*
-  * Yandex *(две последние стабильные версии)*
+- Chrome _(две последние стабильные версии)_
+- Edge _(две последние стабильные версии)_
+- Firefox _(две последние стабильные версии)_
+- IE 11+
+- Opera _(две последние стабильные версии)_
+- Safari _(две последние стабильные версии)_
+- Yandex _(две последние стабильные версии)_
 
 **Mobile**
 
-  * Android 4.1+
-  * iOS *(две последние стабильные версии)*
+- Android 5+
+- iOS _(две последние стабильные версии)_
 
-Мобильная вёрстка
------------------
-[Использование в адаптивной/мобильной среде](./README_MOBILE.md)
+## Вёрстка
 
-Дизайн 2017 (aka Fantasy)
--------------------------
+[Использование в адаптивной/мобильной среде](./GUIDE.md)
 
-Work in progress
+## Цветовая схема
 
-[Демо](https://alfa-laboratory.github.io/arui-feather/styleguide-fantasy/)
+[Использование цветовой схемы](./COLORS.md)
 
-Для использования обновлённой дизайн-системы импортируйте компоненты следующим образом:
+## Темезация
 
-```
-import Input from 'arui-feather/input/fantasy'
-```
+[Использование темы](./THEMING.md)
 
-Разработка
-----------
+## Разработка
 
 Необходимые внешние зависимости системы:
 
-`node` 5+ и `npm` (https://nodejs.org/en/).
+[`node`](https://nodejs.org/en/) 12 и `npm`
 
 Шаги запуска демо:
 
 1. `npm i`
-2. `npm run demo`
+2. `npm run start`
 
-Запустить демо fantasy
+Запустить демо на произвольном порту:
 
-`npm run demo-fantasy`
-
-Запустить demo на произвольном порту:
-
-`PORT=8888 npm run demo`
-
-
+`PORT=8888 npm run start`
 
 Использовать только для обновления нескольких компонентов. Иначе не хватает памяти.
 
-Автоматические проверки кода
-----------------------------
+## Автоматические проверки кода
 
 Перед каждым коммитом js код проверяется через `eslint`, css через `stylelint`.
-
-Ручной запуск проверки кода линтерами и юнит тестами `npm run quality-check`.
 
 Запуск unit-тестов `npm run test`.
 
 Запуск unit-тестов для определенных компонентов `TESTS=amount,calendar npm run test`.
 
-Запуск unit-тестов используя Chrome `npm run test -- --browsers=Chrome`
+Запуск unit-тестов используя Chrome `npm run test -- --browser=Chrome`
 
 Запуск линтера для css `npm run lint-css`.
 
 Запуск линтера для js `npm run lint-js`.
 
-[Запуск тестов на мобильных устройствах](./README_MOBILE.md#mobile-testing).
+[Запуск тестов на мобильных устройствах](./GUIDE.md#mobile-testing)
 
-Регрессионное тестирование
---------------------------
+## Регрессионное тестирование
 
 Для тестирования деградаций в вёрстке используется [`gemini`](https://github.com/gemini-testing/gemini).
 
@@ -116,71 +105,40 @@ import Input from 'arui-feather/input/fantasy'
 
 Запуск тестов производится командой `npm run gemini`.
 
-В схеме тестирования участвует сервис [`Sauce Labs`](https://saucelabs.com), для доступа к нему необходимо указать переменные окружения: `SAUCE_USERNAME=alfalab.js SAUCE_ACCESS_KEY={ ключ взять у мейнтейнеров }`.
-
 Обновление или создание новых эталонных скриншотов: `npm run gemini-update`.
 
-Запуск `gemini` на выборочное число сьютов (используется опция `--grep` c JS RegExp): `SUITES='button|select' npm run gemini`.
+Для запуска тестов или обновления скриншотов необходимы следующие шаги:
 
-Во время тестирования рендер каждого сьюта доступен по URL, например: `http://localhost:8888/popup/popup_theme_alfa-on-color.popup_size_m.popup_prop-set_1`
+- `export SAUCE_USERNAME=alfalab.js SAUCE_ACCESS_KEY={ ключ взять у мейнтейнеров }`
+- `npm run sauce-connect`
+- `npm run gemini` или `npm run gemini-update`
 
-Минификация svg
----------------
+Запуск `gemini` на выборочное число тестов (используется опция [`--grep`](https://gemini-testing.github.io/doc/config.html)): `npm run gemini -- --grep="button|select"`.
 
-Для оптимизация svg используется [svgo](https://github.com/svg/svgo)
-```
+Во время тестирования рендер каждого сьюта доступен по URL, например: `http://localhost:8668/popup/popup_theme_alfa-on-color.popup_size_m.popup_prop-set_1`
+
+## Минификация svg
+
+Для оптимизация svg используется [svgo](https://github.com/svg/svgo).
+
+```sh
 npm install svgo -g
 find src -name *.svg -print0 | xargs -0 -L 1 svgo
 ```
 
-Документация по компонентам
----------------------------
+## Правила контрибуции
 
-Документация генерируется на основе кода библиотеки и комментариев в формате jsdoc.
+Мы ведём задачи в [issues](https://github.com/alfa-laboratory/arui-feather/issues). Для обсуждения есть [чат мейнтейнеров](https://app.slack.com/client/T02QH68UT/C4C27PN68) (#arui-maintainers).
 
-Перед каждым коммитом документация автоматически перегенирируется.
+- Уважаем тех, кто видит проблему и кидает PR.
+- Не знаете что делать — можно брать любую задачу без Assignee, назначив её на себя.
+- Знаете что делать и есть возможность — кидайте PR.
+- Знаете что делать, но нет времени — добавьте задачу (issue).
 
-[Референс по всем блокам](./docs)
+[Подробнее о том, как контрибьютить в проект](./.github/CONTRIBUTING.md)
 
-Ручной запуск перегенерации документации: `npm run docs`.
+## Публикация
 
-Правила контрибуции
--------------------
-
-[Подробнее о том, как контрибьютить в проект](./CONTRIBUTION.md)
-
-Оптимизация производительности компонентов
--------------------------------------------
-Для оптимизации производительности компонентов используется метод
-[shouldComponentUpdate](https://facebook.github.io/react/docs/advanced-performance.html#avoiding-reconciling-the-dom),
-реализуемый декоратором [@performance](./src/performance.js).
-
-Пример использования:
-```
-import performance from '../performance';
-
-@performance(true)
-class Component extends React.Component {}
-```
-
-Использование Modernizr
------------------------
-Поскольку modernizr на данный момент не умеет правильно работать внутри webpack
-используется скрипт для генерации webpack на основе конфигурации для него.
-
-Настройки modernizr находятся в файле `.modernizrrc`. [Список доступных опций](https://github.com/Modernizr/Modernizr/blob/master/lib/config-all.json)
-
-Автоматическая перегенерация `modernizr.js` не предусмотрена, в случае если вы поменяли его настройки - вам нужно
-будет перегенерировать файл.
-
-Для ручного обновления собранного `Modernizr`:
-
-```
-npm run modernizr
-```
-
-Публикация
-----------
 Для выпуска новой версии используйте следущие команды:
 
 - Выпуск патч-версии 1.0.0 -> 1.0.1 `npm run release-patch`
@@ -190,7 +148,18 @@ npm run modernizr
 Запуск этих команд автоматически сформирует changelog, сделает новый git tag,
 запустит сборку и публикацию.
 
-Лицензия
---------
+## Deprecation policy
 
-© 2017 Alfa Laboratory. Код лицензирован [Mozilla Public License 2.0](LICENSE.txt).
+Deprecation публичного API должно происходить плавно, позволяя пользователям библиотеки
+обновляться с наименьшими неудобствами. Deprecation происходит со следующим сценарием:
+
+1. Обновление документации для уведомления пользователей.
+2. Выпуск минорного релиза с deprecations.
+3. Дополнительное оповещение о deprecation в Slack-канал библиотеки.
+
+До полного удаления устаревшей функциональности в мажорном релизе, должна быть выпущена как минимум
+одна минорная версия для уведомления пользователей об изменениях.
+
+## Лицензия
+
+© 2016-2020 Alfa-Bank. Код лицензирован [Mozilla Public License 2.0](LICENSE.txt).

@@ -1,34 +1,10 @@
+[Полный список иконок с поиском](http://design.alfabank.ru/style/icons)
+
 ```jsx
+import AlphaIcon from 'arui-feather/icon/brand/bank-2449';
+
 <div>
-    {['error', 'fail', 'ok', 'ok_filled', 'calendar', 'search', 'close', 'user'].map(icon => (
-        <div className='row' >
-            {['s', 'm', 'l', 'xl', 'xxl'].map(size => (
-                <div className='column l' >
-                    <Icon
-                        size={ size }
-                        icon={ icon }
-                    />
-                </div>
-            ))}
-        </div>
-    ))}
-</div>
-```
-Иконки error и ok поддерживающие цветную тему
-```jsx
-<div>
-    {['error', 'ok'].map(icon => (
-        <div className='row' >
-            {['s', 'm', 'l', 'xl', 'xxl'].map(size => (
-                <div className='column l' >
-                    <Icon
-                        size={ size }
-                        icon={ icon }
-                        theme='alfa-on-colored'
-                    />
-                </div>
-            ))}
-        </div>
-    ))}
+    <AlphaIcon size='xl' />
+    <AlphaIcon size='xl' colored={ true } />
 </div>
 ```

@@ -1,4 +1,5 @@
 ```jsx
+
 const socialNetworks = [
     { value: 'Facebook' },
     { value: 'Twitter' },
@@ -21,11 +22,17 @@ const socialNetworks = [
     { value: 'mixi' },
     { value: 'XING' }
 ];
+
 function getFilteredOptions(list, typedValue) {
     if (!typedValue) {
         return list;
     }
-    return list.filter(({ value }) => value !== typedValue && value.indexOf(typedValue) !== -1);
+
+    // преобразуем строку ( 'Москва' -> '.*м.*о.*с.*к.*в.*а.*') для полнотекстового поиска, так как
+    // '.*' означает любое количество любых символов
+    const regex = new RegExp(typedValue.toLowerCase().replace(/(?!$)|(?=$)/gm, '.*'));
+
+    return list.filter(({ value }) => regex.test(value.toLowerCase()));
 }
 function handleItemSelect(item) {
     setState({ value: item.text })
@@ -48,6 +55,8 @@ function handleChange(value) {
 
 Элементы с кастомной разметкой
 ```jsx
+import Label from 'arui-feather/label';
+
 function Circle({ background }) {
     const circleStyles = {
         width: '14px',
@@ -62,6 +71,7 @@ function Circle({ background }) {
         marginRight: '10px',
         marginLeft: '-20px'
     };
+
     return (
         <span style={ circleStyles } />
     )
@@ -78,7 +88,7 @@ const socialNetworks = [
             </Label>
     },
     {
-        value: 'Facebook',
+        value: 'Гипермаркет',
         description:
             <Label size='l'>
                 <div style={ { display: 'flex' } }>
@@ -88,7 +98,7 @@ const socialNetworks = [
             </Label>
     },
     {
-        value: 'Twitter',
+        value: 'Штрафы, налоги, комиссии',
         description:
             <Label size='l'>
                 <div style={ { display: 'flex' } }>
@@ -98,15 +108,20 @@ const socialNetworks = [
             </Label>
     }
 ];
+
 function getFilteredOptions(list, typedValue) {
     if (!typedValue) {
         return list;
     }
-    return list.filter(({ value }) => value !== typedValue && value.indexOf(typedValue) !== -1);
+
+    const typedValueLCase = typedValue.toLowerCase();
+
+    return list.filter(({ value }) => value.toLowerCase().includes(typedValueLCase));
 }
 function handleItemSelect(item) {
     setState({ value: item.text })
 }
+
 function handleChange(value) {
     setState({ value });
 }
@@ -119,4 +134,72 @@ function handleChange(value) {
     placeholder='Выберите категорию'
     options={ getFilteredOptions(socialNetworks, state.value) }
 />
+```
+
+Автокомплит с автозакрытием после выбора
+```jsx
+import TagButton from 'arui-feather/tag-button';
+
+const socialNetworks = [
+    { value: 'Facebook' },
+    { value: 'Twitter' },
+    { value: 'LinkedIn' },
+    { value: 'Sina Weibo' },
+    { value: 'Pinterest' },
+    { value: 'VKontakte' },
+    { value: 'Instagram' },
+    { value: 'Tumblr' },
+    { value: 'Flickr' },
+    { value: 'Odnoklassniki' },
+    { value: 'Renren' },
+    { value: 'douban' },
+    { value: 'LiveJournal' },
+    { value: 'DeviantArt' },
+    { value: 'StumbleUpon' },
+    { value: 'Myspace' },
+    { value: 'Yelp, Inc.' },
+    { value: 'Taringa!' },
+    { value: 'mixi' },
+    { value: 'XING' }
+];
+
+function getFilteredOptions(list, typedValue) {
+    if (!typedValue) {
+        return list;
+    }
+
+    const typedValueLCase = typedValue.toLowerCase();
+
+    return list.filter(({ value }) => value.toLowerCase().includes(typedValueLCase));
+}
+
+function handleItemSelect(item) {
+    const values = state.values || [];
+
+    if (!values.includes(item.value)) {
+        setState({ values: values.concat([item.value]) });
+    }
+}
+
+function handleChange(value) {
+    setState({ value });
+}
+
+<div>
+    <InputAutocomplete
+        size='l'
+        value={ state.value }
+        width='available'
+        closeOnSelect={ true }
+        onChange={ handleChange }
+        onItemSelect={ handleItemSelect }
+        updateValueOnItemSelect={ false }
+        placeholder='Выберите категорию'
+        options={ getFilteredOptions(socialNetworks, state.value) }
+    />
+
+    <div style={ { marginTop: '5px' } }>
+        { state.values && state.values.map(value => <TagButton key={ value } size='s'>{ value }</TagButton>) }
+    </div>
+</div>
 ```

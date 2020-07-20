@@ -1,0 +1,64 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import "../vars.css";
+
+.icon-button {
+    opacity: var(--opacity-default);
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: none;
+    box-shadow: none;
+    transition-duration: 250ms;
+    transition-property: background, opacity;
+    transition-timing-function: ease;
+
+    &,
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+
+    &_hovered,
+    &_focused {
+        opacity: var(--opacity-active);
+    }
+
+    &_disabled {
+        opacity: var(--opacity-disabled);
+        cursor: default;
+    }
+
+    &_size_s {
+        width: 30px;
+        height: 30px;
+    }
+
+    &_size_m {
+        width: 34px;
+        height: 40px;
+    }
+
+    &_size_l {
+        width: 44px;
+        height: 50px;
+    }
+
+    &_size_xl {
+        width: 52px;
+        height: 60px;
+    }
+}

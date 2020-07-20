@@ -2,24 +2,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
 
 .input_theme_alfa-on-white {
     .input__box {
-        background: var(--color-background-control-alfa-on-white);
-        border-color: rgba(0, 0, 0, .3);
-        border-style: solid;
-        border-width: 1px;
-    }
-
-    &,
-    .input__control {
-        color: var(--color-content-alfa-on-white);
+        border-bottom-color: var(--color-border-control-alfa-on-white);
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
     }
 
     .input__control {
         color: var(--color-content-alfa-on-white);
-        background: transparent;
 
         &::placeholder {
             color: var(--color-content-minor-alfa-on-white);
@@ -28,44 +21,69 @@
         &:-webkit-autofill,
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus,
-        &:-webkit-autofill:after {
-            -webkit-text-fill-color: var(--color-content-alfa-on-white) !important;
+        &:-webkit-autofill:active {
+            -webkit-text-fill-color: var(--color-content-alfa-on-white);
+            caret-color: var(--color-content-alfa-on-white);
         }
     }
 
-    .input__clear {
-        background-image: url(./images/input__clear_white.svg);
+    .input__top,
+    .input__sub {
+        color: var(--color-content-minor-alfa-on-white);
     }
 
-    &.input_has-icon .input__icon {
-        color: var(--color-content-alfa-on-white);
-        opacity: var(--opacity-minor);
+    &.input_has-label {
+        .input__control::placeholder {
+            color: transparent;
+        }
+
+        &.input_focused {
+            .input__control::placeholder {
+                color: var(--color-content-minor-alfa-on-white);
+            }
+        }
     }
 
-    &.input_mode_link {
-        .input__box {
-            background: transparent;
-            border-color: transparent;
+    &.input_has-icon {
+        .input__icon {
+            color: var(--color-content-alfa-on-white);
         }
     }
 
     &.input_focused {
         .input__box {
-            background: var(--color-background-control-focused-alfa-on-white);
-            border-color: var(--color-border-control-focused-alfa-on-white);
-            box-shadow: 0 0 0 1px var(--color-border-control-focused-alfa-on-white);
+            border-bottom-color: var(
+                --color-border-control-focused-alfa-on-white
+            );
+            box-shadow: inset 0 -1px 0 var(--color-border-control-focused-alfa-on-white);
         }
     }
 
     &.input_disabled {
         .input__box {
-            background: var(--color-background-control-disabled-alfa-on-white);
-            border-color: transparent;
+            border-bottom-color: var(
+                --color-border-control-disabled-alfa-on-white
+            );
+            border-bottom-style: var(--border-style-control-disabled);
+            box-shadow: none;
         }
 
         &,
         .input__control {
-            color: var(--color-content-minor-alfa-on-white);
+            color: var(--color-content-disabled-alfa-on-white);
+
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            &:-webkit-autofill:focus,
+            &:-webkit-autofill:active {
+                -webkit-text-fill-color: var(
+                    --color-content-disabled-alfa-on-white
+                );
+            }
+        }
+
+        .input__control::placeholder {
+            color: var(--color-content-disabled-alfa-on-white);
         }
 
         .input__icon {
@@ -73,66 +91,19 @@
         }
     }
 
-    &.input_size_s .input__clear,
-    &.input_size_m .input__clear {
-        background-size: 10px;
-    }
+    &.input_invalid {
+        .input__sub {
+            color: var(--color-error);
+        }
 
-    &.input_size_l .input__clear,
-    &.input_size_xl .input__clear {
-        background-size: 14px;
-    }
-}
+        .input__box {
+            border-bottom-color: var(--color-error-translucent);
+        }
 
-.control-group {
-    .input_theme_alfa-on-white {
         &.input_focused {
             .input__box {
-                border-top-color: var(--color-border-control-focused-alfa-on-white);
-                border-right-color: var(--color-border-control-focused-alfa-on-white);
-                border-bottom-color: var(--color-border-control-focused-alfa-on-white);
-            }
-        }
-    }
-
-    .input-group__input-case:not(.input-group__input-case_invalid) + .input-group__input-case_disabled {
-        margin-left: 1px;
-
-        .input_theme_alfa-on-white.input_disabled {
-            .input__box {
-                box-shadow: -1px 0 0 0 rgba(0, 0, 0, .3);
-            }
-        }
-    }
-
-    > :not(:last-of-type) {
-        .input_theme_alfa-on-white {
-            .input__box {
-                border-right: none;
-            }
-
-            &.input_focused:not(.input_invalid) .input__box {
-                box-shadow: 0 0 0 1px var(--color-border-control-focused-alfa-on-white), 1px 0 0 1px var(--color-border-control-focused-alfa-on-white);
-            }
-        }
-    }
-
-    .input-group__input-case_invalid + * {
-        .input_theme_alfa-on-white {
-            &.input_focused:not(.input_invalid) .input__box {
-                box-shadow: -1px 0 0 1px var(--color-border-control-focused-alfa-on-white), 1px 0 0 1px var(--color-border-control-focused-alfa-on-white);
-            }
-        }
-    }
-
-    > :last-of-type {
-        .input_theme_alfa-on-white:not(.input_disabled) {
-            .input__box {
-                border-right-color: rgba(0, 0, 0, .3);
-            }
-
-            &.input_focused .input__box {
-                border-right-color: var(--color-border-control-focused-alfa-on-white);
+                border-bottom-color: var(--color-error-translucent);
+                box-shadow: inset 0 -1px 0 var(--color-error-translucent);
             }
         }
     }

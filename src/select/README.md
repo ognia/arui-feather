@@ -3,28 +3,31 @@
 const options = [
     { value: '01', text: 'ИП Фридман М.М.' },
     { value: '02', text: 'ООО «Виктори»' },
-    { value: '03', text: 'ФГУП НПП ВНИИЭМ' }
+    { value: '03', text: 'ФГУП НПП ВНИИЭМ', props: { disabled: true } }
 ];
+
 <div>
-    {['s'].map(size => (
-        <div className='row' >
-            <div className='column'>
-                <Select
-                    size={ size }
-                    mode='radio'
-                    options={ options }
-                />
+    {
+        ['s'].map(size => (
+            <div className='row' key={ size }>
+                <div className='column'>
+                    <Select
+                        size={ size }
+                        mode='radio'
+                        options={ options }
+                    />
+                </div>
+                <div className='column'>
+                    <Select
+                        size={ size }
+                        mode='radio'
+                        options={ options }
+                        disabled={ true }
+                    />
+                </div>
             </div>
-            <div className='column'>
-                <Select
-                    size={ size }
-                    mode='radio'
-                    options={ options }
-                    disabled={ true }
-                />
-            </div>
-        </div>
-    ))}
+        ))
+    }
 </div>
 ```
 
@@ -35,26 +38,29 @@ const options = [
     { value: '02', text: 'ООО «Виктори»' },
     { value: '03', text: 'ФГУП НПП ВНИИЭМ' }
 ];
+
 <div>
-    {['m'].map(size => (
-        <div className='row' >
-            <div className='column'>
-                <Select
-                    size={ size }
-                    mode='check'
-                    options={ options }
-                />
+    {
+        ['m'].map(size => (
+            <div className='row' key={ size }>
+                <div className='column'>
+                    <Select
+                        size={ size }
+                        mode='check'
+                        options={ options }
+                    />
+                </div>
+                <div className='column'>
+                    <Select
+                        size={ size }
+                        mode='check'
+                        options={ options }
+                        disabled={ true }
+                    />
+                </div>
             </div>
-            <div className='column'>
-                <Select
-                    size={ size }
-                    mode='check'
-                    options={ options }
-                    disabled={ true }
-                />
-            </div>
-        </div>
-    ))}
+        ))
+    }
 </div>
 ```
 
@@ -65,26 +71,116 @@ const options = [
     { value: '02', text: 'ООО «Виктори»' },
     { value: '03', text: 'ФГУП НПП ВНИИЭМ' }
 ];
+
 <div>
-    {['xl'].map(size => (
-        <div className='row' >
-            <div className='column'>
-                <Select
-                    size={ size }
-                    mode='radio-check'
-                    options={ options }
-                />
+    {
+        ['xl'].map(size => (
+            <div className='row' key={ size }>
+                <div className='column'>
+                    <Select
+                        size={ size }
+                        mode='radio-check'
+                        options={ options }
+                    />
+                </div>
+                <div className='column'>
+                    <Select
+                        size={ size }
+                        mode='radio-check'
+                        options={ options }
+                        disabled={ true }
+                    />
+                </div>
             </div>
-            <div className='column'>
-                <Select
-                    size={ size }
-                    mode='radio-check'
-                    options={ options }
-                    disabled={ true }
-                />
-            </div>
+        ))
+    }
+</div>
+```
+
+С лейблом
+```jsx
+const options = [
+    { value: '01', text: 'Технопарк' },
+    { value: '02', text: 'Петроградская' },
+    { value: '03', text: 'Адмиралтейская слобода', props: { disabled: true } }
+];
+
+<div>
+    <div className='row'>
+        <div className='column'>
+            <Select
+                label='Станция метро'
+                mode='check'
+                options={ options }
+            />
         </div>
-    ))}
+    </div>
+</div>
+```
+
+С плейсхолдером
+```jsx
+const options = [
+    { value: '01', text: 'Технопарк' },
+    { value: '02', text: 'Петроградская' },
+    { value: '03', text: 'Адмиралтейская слобода', props: { disabled: true } }
+];
+
+<div>
+    <div className='row'>
+        <div className='column'>
+            <Select
+                placeholder='Выберите одну или несколько'
+                mode='check'
+                options={ options }
+            />
+        </div>
+    </div>
+</div>
+```
+
+С лейблом и плейсхолдером
+```jsx
+const options = [
+    { value: '01', text: 'Технопарк' },
+    { value: '02', text: 'Петроградская' },
+    { value: '03', text: 'Адмиралтейская слобода', props: { disabled: true } }
+];
+
+<div>
+    <div className='row'>
+        <div className='column'>
+            <Select
+                label='Станция метро'
+                placeholder='Выберите одну или несколько'
+                mode='check'
+                options={ options }
+            />
+        </div>
+    </div>
+</div>
+```
+
+С кастомной подсказкой для нативного контрола
+```jsx
+const options = [
+    { value: '01', text: 'Технопарк' },
+    { value: '02', text: 'Петроградская' },
+    { value: '03', text: 'Адмиралтейская слобода', props: { disabled: true } }
+];
+
+<div>
+    <div className='row'>
+        <div className='column'>
+            <Select
+                label='Станция метро'
+                placeholder='Выберите одну или несколько'
+                nativeOptionPlaceholder='Станций-то всего 3'
+                mode='check'
+                options={ options }
+            />
+        </div>
+    </div>
 </div>
 ```
 
@@ -98,28 +194,31 @@ const options = [
     { value: '5', text: 'ГОУ ДПО БелРИПКППС' },
     { value: '6', text: 'ООО «Абсолютная власть»' }
 ];
+
 <div>
-    {['l'].map(size => (
-        <div className='row' >
-            <div className='column'>
-                <Select
-                    width='available'
-                    size={ size }
-                    mode='check'
-                    options={ options }
-                />
+    {
+        ['l'].map(size => (
+            <div className='row' key={ size }>
+                <div className='column'>
+                    <Select
+                        width='available'
+                        size={ size }
+                        mode='check'
+                        options={ options }
+                    />
+                </div>
+                <div className='column'>
+                    <Select
+                        width='available'
+                        size={ size }
+                        mode='check'
+                        options={ options }
+                        disabled={ true }
+                    />
+                </div>
             </div>
-            <div className='column'>
-                <Select
-                    width='available'
-                    size={ size }
-                    mode='check'
-                    options={ options }
-                    disabled={ true }
-                />
-            </div>
-        </div>
-    ))}
+        ))
+    }
 </div>
 ```
 
@@ -162,28 +261,148 @@ const options = [
     { value: '34', text: 'ООО «Здравый смысл»' },
     { value: '35', text: 'ООО «Ооо»' }
 ];
+
 <div>
-    {['s', 'm', 'l', 'xl'].map(size => (
-        <div className='row' >
-            <div className='column'>
-                <Select
-                    size={ size }
-                    mode='radio'
-                    options={ options }
-                    mobileMenuMode='popup'
-                    mobileTitle='Очень длинный заголовок на мобильном устройстве'
-                />
+    {
+        ['s', 'm', 'l', 'xl'].map(size => (
+            <div className='row' key={ size }>
+                <div className='column'>
+                    <Select
+                        size={ size }
+                        mode='radio'
+                        options={ options }
+                        mobileMenuMode='popup'
+                        mobileTitle='Очень длинный заголовок на мобильном устройстве'
+                        nativeOptionPlaceholder='Какая-то длинная подсказка'
+                    />
+                </div>
+                <div className='column'>
+                    <Select
+                        size={ size }
+                        mode='radio'
+                        options={ options }
+                        mobileMenuMode='popup'
+                        disabled={ true }
+                    />
+                </div>
             </div>
-            <div className='column'>
-                <Select
-                    size={ size }
-                    mode='radio'
-                    options={ options }
-                    mobileMenuMode='popup'
-                    disabled={ true }
-                />
-            </div>
+        ))
+    }
+</div>
+```
+
+Группированный селект (у второго селекта размещение заголовка в одну линию)
+```jsx
+const options = [
+    {
+        type: 'group',
+        title: 'ИП УСН 6%',
+        content: [
+            { value: '1', text: 'ИП Иванов' },
+            { value: '2', text: 'ИП Баринов' }
+        ]
+    },
+    {
+        type: 'group',
+        title: 'ИП УСН 15%',
+        content: [
+            { value: '3', text: 'ИП Семёнов' },
+            { value: '4', text: 'ИП Лягушкин' }
+        ]
+    },
+    {
+        type: 'group',
+        title: '',
+        content: [
+            { value: '5', text: 'ИП Лукина' }
+        ]
+    }
+];
+const options2 = [
+    {
+        type: 'group',
+        title: 'а)',
+        content: [
+            { value: '1', text: 'ИП Иванов' },
+            { value: '2', text: 'ИП Баринов' }
+        ]
+    },
+    {
+        type: 'group',
+        title: 'б)',
+        content: [
+            { value: '3', text: 'ИП Семёнов' },
+            { value: '4', text: 'ИП Лягушкин' }
+        ]
+    },
+    {
+        type: 'group',
+        title: '',
+        content: [
+            { value: '5', text: 'ИП Лукина' }
+        ]
+    }
+];
+
+<div>
+    <div className='row' >
+        <div className='column'>
+            <Select
+                groupView='default'
+                options={ options }
+                mode='radio'
+            />
         </div>
-    ))}
+        <div className='column'>
+            <Select
+                groupView='line'
+                options={ options2 }
+                mode='radio'
+                value={ ['4'] }
+            />
+        </div>
+    </div>
+</div>
+```
+
+Без иконки на кнопке
+```jsx
+const options = [
+    { value: '01', text: 'ИП Фридман М.М.' },
+    { value: '02', text: 'ООО «Виктори»' },
+    { value: '03', text: 'ФГУП НПП ВНИИЭМ', props: { disabled: true } }
+];
+
+<div>
+    <div className='row'>
+        <div className='column'>
+            <Select
+                mode='radio'
+                options={ options }
+                hideTick={ true }
+            />
+        </div>
+    </div>
+</div>
+```
+
+Рендер выпадающего списка (Popup) только после открытия (полезно при большом количестве компонентов на одной странице)
+```jsx
+const options = [
+    { value: '01', text: 'ИП Фридман М.М.' },
+    { value: '02', text: 'ООО «Виктори»' },
+    { value: '03', text: 'ФГУП НПП ВНИИЭМ', props: { disabled: true } }
+];
+
+<div>
+    <div className='row'>
+        <div className='column'>
+            <Select
+                mode='radio'
+                options={ options }
+                renderPopupOnFocus={ true }
+            />
+        </div>
+    </div>
 </div>
 ```

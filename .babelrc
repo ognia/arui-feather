@@ -1,3 +1,22 @@
 {
-  "presets": ["arui-presets/babel"]
+  "presets": [
+    "arui-presets/babel",
+    [
+      "@babel/preset-typescript",
+      {
+        "isTSX": true,
+        "allExtensions": true
+      }
+    ]
+  ],
+  "plugins": [
+    ["transform-react-remove-prop-types", {"mode": "wrap"}]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "babel-plugin-dynamic-import-node"
+      ]
+    }
+  }
 }

@@ -1,22 +1,48 @@
 ```jsx
+import Button from 'arui-feather/button';
+
 const layoutStyle = {
     paddingRight: '10px'
 };
+
 <div>
-    {['s', 'm', 'l', 'xl'].map(size => (
-        <span key={ size } style={ layoutStyle } >
-            <Button
-                icon={
-                    <Spin
+    <div className='row'>
+        {
+            ['xl', 'l'].map(size => (
+                <span key={ size } style={ layoutStyle } >
+                    <Button
+                        icon={
+                            <Spin
+                                size={ size }
+                                visible={ true }
+                            />
+                        }
                         size={ size }
-                        visible={ true }
-                    />
-                }
-                size={ size }
-            >
-                Документы загружаются...
-            </Button>
-        </span>
-    ))}
+                    >
+                        Документы загружаются...
+                    </Button>
+                </span>
+            ))
+        }
+    </div>
+    <div className='row'>
+        {
+            ['m', 's'].map(size => (
+                <span key={ size } style={ layoutStyle } >
+                    <Button
+                        icon={
+                            <Spin
+                                size={ size }
+                                visible={ true }
+                            />
+                        }
+                        size={ size }
+                    >
+                        Документы загружаются...
+                    </Button>
+                </span>
+            ))
+        }
+    </div>
 </div>
 ```

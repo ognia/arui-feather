@@ -2,16 +2,32 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
+
+:root {
+    --popup-gradient: color(var(--color-background-alfa-on-color) a(0)) 0%,
+        color(var(--color-background-alfa-on-color) a(0.4)) 40%,
+        color(var(--color-background-alfa-on-color) a(0.9)) 75%,
+        color(var(--color-background-alfa-on-color) a(1)) 100%;
+}
 
 .popup_theme_alfa-on-color {
     color: var(--color-content-alfa-on-color);
-    background-color: var(--color-background-alfa-on-color);
     box-shadow: var(--shadow-light);
+
+    .popup__container {
+        background-color: var(--color-background-alfa-on-color);
+    }
 
     &.popup_height_adaptive .popup__gradient,
     &.popup_target_screen .popup__gradient {
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .4) 40%, rgba(0, 0, 0, .9) 75%, rgba(0, 0, 0, 1) 100%);
+        &_top {
+            background: linear-gradient(to top, var(--popup-gradient));
+        }
+
+        &_bottom {
+            background: linear-gradient(to bottom, var(--popup-gradient));
+        }
     }
 
     &.popup_type_tooltip:before {

@@ -2,18 +2,28 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
+
+:root {
+    --size-m-box: 16px;
+    --size-l-box: 24px;
+}
 
 .radio {
-    font-family: var(--font);
-    font-weight: var(--font-weight);
-
     display: inline-block;
-    white-space: nowrap;
     position: relative;
-
     cursor: pointer;
     outline: none;
+    font-family: var(--font);
+    font-weight: var(--font-weight-normal);
+    white-space: nowrap;
+
+    &,
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
 
     &__control {
         opacity: 0;
@@ -28,79 +38,83 @@
 
     &__box {
         display: inline-block;
-        vertical-align: middle;
+        vertical-align: top;
         position: relative;
-
+        margin-top: 0.05em;
         border-radius: 50%;
-        box-sizing: border-box;
+        transition: all 0.1s 0s ease-out;
 
+        &:before,
         &:after {
+            content: "";
+            display: block;
             position: absolute;
-
+            background: transparent;
+            border-radius: 50%;
             top: 50%;
             left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-            content: '';
-
-            visibility: hidden;
+        &:before {
+            z-index: 2;
             opacity: 0;
-
-            border-radius: 50%;
-
-            transition:
-                transform .05s ease-out,
-                opacity .05s ease-out,
-                visibility 0s linear .05s;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: all 0.1s 0s ease-out;
         }
     }
 
     &__text {
         display: inline-block;
+        vertical-align: top;
         white-space: normal;
-        vertical-align: middle;
+        line-height: normal;
     }
 
     &_size_m {
         font-size: var(--font-size-m);
-    }
 
-    &_size_m &__box {
-        width: 14px;
-        height: 14px;
+        .radio__box {
+            width: var(--size-m-box);
+            height: var(--size-m-box);
+            margin-right: var(--gap-xs);
 
-        margin-right: 6px;
+            &:after {
+                width: var(--size-m-box);
+                height: var(--size-m-box);
+            }
+        }
 
-        &:after {
-            margin-top: -3px;
-            margin-left: -3px;
-
-            width: 6px;
-            height: 6px;
+        &.radio_checked .radio__box {
+            &:before {
+                width: 5px;
+                height: 5px;
+            }
         }
     }
 
     &_size_l {
         font-size: var(--font-size-xl);
-    }
 
-    &_size_l &__box {
-        width: 18px;
-        height: 18px;
+        .radio__box {
+            width: var(--size-l-box);
+            height: var(--size-l-box);
+            margin-right: var(--gap-s);
 
-        margin-right: 10px;
-
-        &:after {
-            margin-top: -4px;
-            margin-left: -4px;
-
-            width: 8px;
-            height: 8px;
+            &:after {
+                width: var(--size-l-box);
+                height: var(--size-l-box);
+            }
         }
-    }
 
-    &_checked &__box:after {
-        visibility: visible;
-        opacity: 1;
+        &.radio_checked .radio__box {
+            &:before {
+                width: 8px;
+                height: 8px;
+            }
+        }
     }
 
     &_disabled {
@@ -112,18 +126,15 @@
     display: inline-block;
 
     .radio__control {
-        position: absolute;
-
         visibility: hidden;
+        position: absolute;
     }
 
-    &.radio_checked .button__text {
-        font-weight: var(--font-weight);
-    }
-
-    /* FIXME: maybe remove cascade? */
-    .button_checked {
-        cursor: default;
+    /* TODO remove? */
+    &.radio_checked {
+        .button__text {
+            font-weight: var(--font-weight-normal);
+        }
     }
 }
 
@@ -131,16 +142,28 @@
     width: 100%;
 }
 
+/* TODO remove? */
 .radio_invalid {
     .radio__box {
         border-color: var(--color-error-translucent);
     }
+}
 
-    &.radio_focused,
-    &.radio_hovered {
-        .radio__box {
-            border-color: var(--color-error-translucent);
-            box-shadow: 0 0 0 1px var(--color-error-translucent);
+.radio_checked {
+    .radio__box {
+        transition: all 0.1s 0s ease-out;
+
+        &:before {
+            opacity: var(--opacity-active);
+            transition: all 0.1s 0s ease-out;
+        }
+    }
+}
+
+.radio_focused {
+    .radio__box {
+        &:after {
+            border: 2px solid;
         }
     }
 }

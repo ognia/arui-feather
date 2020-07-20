@@ -2,100 +2,109 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
 
 :root {
-    --width: 325px;
-    --offset: 20px;
+    --width: 350px;
 }
 
 .notification {
-    position: fixed;
     visibility: hidden;
-    box-sizing: border-box;
-    border-radius: var(--border-radius-control);
-    padding: 15px 45px 15px 25px;
-    width: 315px;
-    min-height: 80px;
-
-    z-index: 9999;
-
+    position: fixed;
+    width: var(--width);
+    min-height: 56px;
+    padding: var(--gap-m);
     font-family: var(--font);
-    font-weight: var(--font-weight);
-    line-height: 1.2;
-    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-condensed);
+    border-radius: var(--border-radius-2x);
+    transition: transform 0.2s ease-out;
+    z-index: 9999;
+    user-select: none;
 
-    transition: all .2s ease-out;
+    color: var(--color-content-alfa-on-color);
+    background: var(--color-dark-indigo);
+    box-shadow: 0 4px 16px rgba(11, 31, 53, 0.12),
+        0 1px 2px rgba(11, 31, 53, 0.24);
+
+    &,
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
 
     &_stick-to_left {
+        left: var(--gap-s);
         transform: translate(calc(var(--width) * -1), 0);
-        left: var(--offset);
     }
 
     &_stick-to_right {
+        right: var(--gap-s);
         transform: translate(var(--width), 0);
-        right: var(--offset);
     }
 
     &_theme_alfa-on-color {
-        color: var(--color-content-alfa-on-color);
-
-        background: var(--color-background-alfa-on-color);
-
-        box-shadow: var(--shadow-light);
+        color: var(--color-content-alfa-on-white);
+        background: var(--color-white);
+        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.12),
+            0 1px 2px rgba(255, 255, 255, 0.24);
     }
 
-    &_theme_alfa-on-white {
-        color: var(--color-content-alfa-on-white);
-
-        background: var(--color-background-alfa-on-white);
-
-        box-shadow: var(--shadow-light);
+    &_has-closer {
+        padding-right: calc(var(--gap-m) + 18px + var(--gap-m));
     }
 
     &__title {
         font-size: var(--font-size-m);
-        line-height: 1.2;
-        padding-bottom: 10px;
-        margin-top: -2px;
+        line-height: var(--line-height-condensed);
+        font-weight: var(--font-weight-bold);
     }
 
     &__content {
         font-size: var(--font-size-s);
-        line-height: 1.2;
+        line-height: var(--line-height-condensed);
+        font-weight: var(--font-weight-normal);
+    }
+
+    &__title + &__content {
+        margin-top: var(--gap-xs);
     }
 
     &__icon,
-    &__close {
+    &__closer {
         position: absolute;
     }
 
     &__icon {
         display: none;
-        top: 10px;
-        left: 18px;
+        top: var(--gap-m);
+        left: var(--gap-m);
     }
 
-    &__close {
-        top: 10px;
-        right: 10px;
+    &__closer {
+        opacity: var(--opacity-minor);
+        top: var(--gap-xs);
+        right: var(--gap-xs);
+        width: 34px;
+        height: 34px;
         cursor: pointer;
         transition: opacity 200ms;
-        opacity: var(--opacity-minor);
 
         &:hover {
-            opacity: 1;
+            opacity: var(--opacity-active);
         }
     }
 
     &_status_ok,
-    &_status_error {
-        width: 350px;
-        padding-left: 60px;
+    &_status_error,
+    &_status_fail {
+        padding-left: calc(var(--gap-s) + var(--gap-xl) + var(--gap-m));
     }
 
     &_status_ok &__icon,
-    &_status_error &__icon {
+    &_status_error &__icon,
+    &_status_fail &__icon {
         display: block;
     }
 
@@ -105,23 +114,35 @@
     }
 }
 
-@media (--small-only) {
+@media (--mobile) {
     .notification {
-        width: 100%;
-        border-radius: 0;
-
+        width: calc(100% - var(--gap-xl));
+        min-height: 48px;
+        padding: var(--gap-s);
         transform: translate(0, -500px);
 
         &_visible {
             transform: translate(0, 0);
         }
 
-        &_stick-to_left {
-            left: 0;
+        &_has-closer {
+            padding-right: calc(var(--gap-s) + 18px + var(--gap-m));
         }
 
-        &_stick-to_right {
-            right: 0;
+        &__icon {
+            top: var(--gap-s);
+            left: var(--gap-s);
+        }
+
+        &__closer {
+            top: var(--gap-2xs);
+            right: var(--gap-2xs);
+        }
+
+        &_status_ok,
+        &_status_error,
+        &_status_fail {
+            padding-left: calc(var(--gap-m) + var(--gap-xl) + var(--gap-m));
         }
     }
 }

@@ -9,25 +9,25 @@ const THEMES = ['alfa-on-white', 'alfa-on-color'];
 const PROP_SETS = [
     {
         collapsedLabel: 'Подробнее',
-        expandedLabel: 'Скрыть'
+        expandedLabel: 'Скрыть',
     },
     {
         collapsedLabel: 'Подробнее',
         expandedLabel: 'Скрыть',
-        isExpanded: true
-    }
+        isExpanded: true,
+    },
 ];
 
-geminiReact.suite(NAME, function () {
+geminiReact.suite(NAME, () => {
     THEMES.forEach((theme) => {
-        let themeSelector = `${NAME}_theme_${theme}`;
+        const themeSelector = `${NAME}_theme_${theme}`;
 
         PROP_SETS.forEach((set, index) => {
-            let selector = `${themeSelector}.${NAME}_prop-set_${index + 1}`;
+            const selector = `${themeSelector}.${NAME}_prop-set_${index + 1}`;
 
-            geminiReact.suite(selector, function (suite) {
-                let props = { theme, ...set };
-                let template = (
+            geminiReact.suite(selector, (suite) => {
+                const props = { theme, ...set };
+                const template = (
                     <GeminiBox theme={ theme }>
                         <Collapse { ...props }>
                             <Paragraph>

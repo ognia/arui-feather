@@ -6,15 +6,18 @@ const AMOUNT = {
         minority: 100
     }
 };
+
 <div>
-    {['s', 'm', 'l', 'xl'].map(size => (
-        <div key={ size }>
-            <Amount
-                size={ size }
-                amount={ AMOUNT }
-            />
-        </div>
-    ))}
+    {
+        ['s', 'm', 'l', 'xl'].map(size => (
+            <div key={ size }>
+                <Amount
+                    size={ size }
+                    amount={ AMOUNT }
+                />
+            </div>
+        ))
+    }
 </div>
 ```
 
@@ -27,15 +30,18 @@ const AMOUNT = {
         minority: 100
     }
 };
+
 <div>
-    {['s', 'm', 'l', 'xl'].map(size => (
-        <div key={ size }>
-            <Amount
-                size={ size }
-                amount={ AMOUNT }
-                isHeading={ true }
-            />
-        </div>
-    ))}
+    {
+        ['s', 'm', 'l', 'xl'].map(size => (
+            <div key={ size }>
+                <Amount
+                    size={ size }
+                    amount={ AMOUNT }
+                    isHeading={ true }
+                />
+            </div>
+        ))
+    }
 </div>
 ```

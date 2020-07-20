@@ -1,6 +1,15 @@
+<!-- eslint-disable no-alert -->
+
 ```jsx
-<Form onSubmit={ function () { alert('Мы перезвоним вам в течение 5 минут'); } }>
-    <FormField label='Телефон'>
+import FormField from 'arui-feather/form-field';
+import Input from 'arui-feather/input';
+import Button from 'arui-feather/button';
+
+<Form onSubmit={ () => {
+    alert('Мы перезвоним вам в течение 5 минут');
+} }
+>
+    <FormField>
         <Input placeholder='Введите номер' />
     </FormField>
     <FormField>

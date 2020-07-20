@@ -1,4 +1,7 @@
-```
+```jsx
+import Button from 'arui-feather/button';
+import Popup from 'arui-feather/popup';
+
 class PopupHeaderDemo extends React.Component {
     constructor() {
         super();
@@ -17,24 +20,33 @@ class PopupHeaderDemo extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    {['s', 'm', 'l', 'xl'].map(size => (
-                        <PopupHeader
-                            size={ size }
-                            title='Заголовок'
-                        />
-                    ))}
+                <div className='row'>
+                    <div style={ { width: '100%' } }>
+                        { ['s', 'm', 'l', 'xl'].map(size => (
+                            <PopupHeader
+                                key={ size }
+                                size={ size }
+                                title='Заголовок'
+                            />
+                        )) }
+                    </div>
                 </div>
-                <div>
+                <div className='row'>
                     <Button
-                        ref={ (target) => { this.target = target; } }
+                        ref={ (target) => {
+                            this.target = target;
+                        } }
                         size='m'
-                        onClick={ () => { this.setState({ popup: !this.state.popup }); } }
+                        onClick={ () => {
+                            this.setState({ popup: !this.state.popup });
+                        } }
                     >
-                        Click me
+                        Узнать время работы
                     </Button>
                     <Popup
-                        ref={ (popup) => { this.popup = popup; } }
+                        ref={ (popup) => {
+                            this.popup = popup;
+                        } }
                         directions={ ['top-center', 'bottom-center'] }
                         size='m'
                         type='tooltip'
@@ -42,7 +54,9 @@ class PopupHeaderDemo extends React.Component {
                             <PopupHeader
                                 size='m'
                                 title='График работы'
-                                onCloseClick={ () => { this.setState({ popup: false }); } }
+                                onCloserClick={ () => {
+                                    this.setState({ popup: false });
+                                } }
                             />
                         ) }
                         visible={ this.state.popup }

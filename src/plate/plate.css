@@ -2,54 +2,102 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
 
 .plate {
-    position: relative;
     display: inline-block;
-    padding: 16px;
+    position: relative;
+    width: 100%;
+    padding: var(--gap-m);
     border-radius: var(--border-radius-control);
-    box-shadow: var(--shadow);
 
-    margin-right: 7px;
-    margin-bottom: 7px;
+    &_type_default {
+        border-radius: var(--border-radius-2x);
 
-    background-color: #fff;
+        /* TODO rgba-цвета заменить на переменные */
+        box-shadow: 0 1px 2px rgba(11, 31, 53, 0.16),
+            0 4px 12px rgba(11, 31, 53, 0.08);
+    }
+
+    &_type_common {
+        background-color: var(--color-dark-indigo-05);
+
+        /* TODO rgba-цвет заменить на переменнe. */
+        border: 1px solid rgb(221, 225, 230);
+    }
+
+    &_type_error {
+        /* TODO rgba-цвета заменить на переменные */
+        background-color: rgba(240, 68, 57, 0.05);
+        border: 1px solid rgba(240, 68, 57, 0.2);
+    }
+
+    &_type_success {
+        /* TODO rgba-цвета заменить на переменные */
+        background-color: rgba(13, 186, 38, 0.06);
+        border: 1px solid rgba(13, 186, 38, 0.2);
+    }
+
+    &_type_warning {
+        /* TODO rgba-цвета заменить на переменные */
+        background-color: rgba(246, 191, 101, 0.1);
+        border: 1px solid rgba(246, 191, 101, 0.6);
+    }
 
     &_hidden {
         display: none;
     }
 
-    &_has-clear {
-        padding-right: 34px;
+    &_has-closer,
+    &_foldable {
+        padding-right: 46px;
     }
 
-    /* FIXME: maybe remove cascade? */
-    &__clear > .icon {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-
-        opacity: var(--opacity-minor);
-
-        transition: opacity .1s ease-out;
-
-        &:hover {
-            opacity: 1;
-        }
-
+    &_foldable &__title span {
         cursor: pointer;
     }
 
-    &_flat {
-        box-shadow: none;
+    &_has-icon {
+        padding-left: 56px;
     }
 
-    &_theme_alfa-on-color.plate_flat {
-        background-color: rgba(255, 255, 255, .06);
+    &__title {
+        font-size: var(--font-size-l);
+        font-weight: var(--font-weight-bold);
+        line-height: var(--line-height-extra-condensed);
     }
 
-    &_theme_alfa-on-white.plate_flat {
-        background-color: rgba(0, 0, 0, .06);
+    &__content {
+        max-height: 100vh;
+        overflow: hidden;
+        transition: max-height 1s ease-in-out;
+
+        &_folded {
+            max-height: 0;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+        }
+    }
+
+    &_has-icon &__icon {
+        position: absolute;
+        left: 0;
+        width: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__closer,
+    &__folder {
+        opacity: var(--opacity-minor);
+        position: absolute;
+        top: 7px;
+        right: var(--gap-s);
+        cursor: pointer;
+        transition: opacity 0.1s ease-out;
+
+        &:hover {
+            opacity: var(--opacity-active);
+        }
     }
 }

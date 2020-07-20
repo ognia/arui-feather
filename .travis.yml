@@ -1,52 +1,59 @@
+sudo: required
+
 dist: trusty
 
 language: node_js
 
 node_js:
-  - '7.4.0'
+  - '12.14.1'
 
 env:
   matrix:
     - TEST_SCOPE: lint
-    - TEST_SCOPE: desktop_unit
-    - TEST_SCOPE: mobile_unit
+    - TEST_SCOPE: unit
     - TEST_SCOPE: gemini
 
 matrix:
   fast_finish: true
 
+deploy:
+  provider: script
+  script: sh $TRAVIS_BUILD_DIR/tools/publish-styleguide.sh
+  skip_cleanup: true
+  on:
+    branch: master
+    condition: $TEST_SCOPE=lint
+
 before_install:
-  - yarn global add greenkeeper-lockfile@1
+  - npm cache clean --force
+  - rm -rf ~/.npm node_modules
 
 install:
-  - yarn install
+  - npm i
 
 before_script:
-  - greenkeeper-lockfile-update
   - |
     if [ "${TEST_SCOPE}" == "gemini" ]; then
-      curl -L https://gist.githubusercontent.com/teryaew/ab7c8a1c377ba0796f20a007a1d830eb/raw/sauce-connect.sh | bash
-      cat .gemini.js
+      npm run sauce-connect
+      cat ./.gemini.js
     fi
 
 script:
-  - if [ "${TEST_SCOPE}" == "lint" ]; then yarn lint; fi
-  - if [ "${TEST_SCOPE}" == "desktop_unit" ]; then yarn test; fi
-  - if [ "${TEST_SCOPE}" == "mobile_unit" ]; then MOBILE=1 yarn test; fi
-  - if [ "${TEST_SCOPE}" == "gemini" ]; then
-      if [ "${TRAVIS_EVENT_TYPE}" == "cron" ]; then
-        export ALL_SIZES=1;
-        yarn build-polyfills;
+  - if [ "${TEST_SCOPE}" == "lint" ]; then npm run lint; fi
+  - if [ "${TEST_SCOPE}" == "unit" ]; then npm run test:coverage && npm run compile; fi
+  #  Only run when pull request or master updating
+  - if [[ "${TEST_SCOPE}" == "gemini" ]]; then
+      if [[ "${TRAVIS_PULL_REQUEST}" != "false" ]] || ([[ "${TRAVIS_BRANCH}" == "master" ]] || [[ "${TRAVIS_PULL_REQUEST}" == "false" ]]); then
+        if [ "${TRAVIS_EVENT_TYPE}" == "cron" ]; then export ALL_BROWSERS=1 ALL_SIZES=1; fi;
+        npm run gemini-ci;
       fi;
-      yarn gemini-ci;
     fi
 
+
 after_script:
-  - greenkeeper-lockfile-upload
   - |
-    if [ "${TRAVIS_BRANCH}" == "master" ] && [ "${TEST_SCOPE}" == "lint" ] && [ -n "${TRAVIS_TAG}" ]; then
-      yarn github-release;
-      echo "GitHub Releases were successfully updated";
+    if [ "${TEST_SCOPE}" == "lint" ] && [ -n "${TRAVIS_TAG}" ]; then
+      npm run github-release;
     fi
   - |
     if [ "${TEST_SCOPE}" == "gemini" ]; then
@@ -55,13 +62,14 @@ after_script:
 
 after_success:
   - |
-    if [ "${TRAVIS_BRANCH}" == "master" ]; then
+    if [[ "${TRAVIS_BRANCH}" == "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" == "false" ]]; then
       if [ "${TEST_SCOPE}" == "lint" ]; then
         sh ./tools/publish-styleguide.sh
       fi
-      if [ "${TEST_SCOPE}" == "desktop_unit" ]; then
-        sh ./tools/publish-styleguide-fantasy.sh
-      fi
+    fi
+  - |
+    if [ "${TEST_SCOPE}" == "unit" ]; then
+      cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
     fi
 
 after_failure:

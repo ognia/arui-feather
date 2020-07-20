@@ -2,62 +2,83 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
 
 .link {
-    font-family: var(--font);
-    font-weight: var(--font-weight);
-
     cursor: pointer;
-
-    transition: color 200ms ease-out;
-
-    text-decoration: none;
-
     outline: none;
+    font-family: var(--font);
+    font-weight: var(--font-weight-normal);
+    text-decoration: none;
+    transition: color 100ms ease-out;
+    -webkit-tap-highlight-color: var(--color-black-10);
 
-    -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+    &_flex {
+        display: inline-flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+    }
+
+    &,
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+
+    &__text-container {
+        flex: 1 1 auto;
+    }
 
     &__text {
         border-bottom-style: solid;
         border-bottom-width: 1px;
-        padding-bottom: 1px;
-
-        transition: border-color 200ms ease-out;
+        transition: border-color 100ms ease-out;
     }
 
     &__icon {
-        margin-right: 5px;
-        vertical-align: middle;
         display: inline-block;
+        vertical-align: middle;
         line-height: 0;
+    }
+
+    &__icon + &__text-container,
+    &__text-container + &__icon {
+        margin-left: 6px;
+    }
+
+    &__icon_left {
+        flex: 0 0 auto;
     }
 
     &_size_xs {
         font-size: var(--font-size-xs);
-        line-height: 1.5;
+        line-height: var(--line-height-normal);
     }
 
     &_size_s {
         font-size: var(--font-size-s);
-        line-height: 1.5;
+        line-height: var(--line-height-normal);
     }
 
     &_size_m {
         font-size: var(--font-size-m);
-        line-height: 1.5;
+        line-height: var(--line-height-normal);
     }
 
     &_size_l {
         font-size: var(--font-size-xl);
+        line-height: var(--line-height-condensed);
     }
 
     &_size_xl {
         font-size: var(--font-size-2xl);
+        line-height: var(--line-height-condensed);
     }
 
     &_pseudo &__text {
-        border-bottom-style: dotted;
+        border-bottom-style: dashed;
     }
 
     &_disabled,
@@ -65,7 +86,8 @@
         cursor: default;
     }
 
-    &_disabled &__icon, &_checked &__icon {
+    &_disabled &__icon,
+    &_checked &__icon {
         opacity: var(--opacity-disabled);
     }
 }
@@ -74,25 +96,20 @@
     color: var(--color-content-alfa-on-color);
 
     .link__text {
-        border-color: rgba(255, 255, 255, .4);
+        border-color: var(--color-content-disabled-alfa-on-color);
     }
 
-    &:hover:not(.link_disabled),
-    &:focus:not(.link_disabled) {
+    &:hover,
+    &:focus {
         color: var(--color-content-accent-alfa-on-color);
 
         .link__text {
-            border-color: rgba(255, 255, 255, 1);
+            border-color: var(--color-content-minor-alfa-on-color);
         }
     }
 
-    &.link_disabled,
-    &.link_checked {
-        color: var(--color-content-minor-alfa-on-color);
-
-        .link__text {
-            border-color: transparent;
-        }
+    &.link_disabled {
+        color: var(--color-content-disabled-alfa-on-color);
     }
 }
 
@@ -100,24 +117,50 @@
     color: var(--color-content-alfa-on-white);
 
     .link__text {
-        border-color: rgba(0, 0, 0, .4);
+        border-color: var(--color-content-disabled-alfa-on-white);
     }
 
-    &:hover:not(.link_disabled),
-    &:focus:not(.link_disabled) {
-        color: var(--color-content-heavy-accent-alfa-on-white);
+    &:hover,
+    &:focus {
+        color: var(--color-content-accent-alfa-on-white);
 
         .link__text {
-            border-color: var(--color-accent-translucent);
+            border-color: var(--color-content-minor-alfa-on-white);
         }
     }
 
+    &.link_view_blue {
+        color: var(--color-blue-link-web);
+
+        .link__text {
+            border-color: var(--color-blue-link-web);
+        }
+
+        &:hover,
+        &:focus {
+            color: var(--color-blue-link-web);
+
+            .link__text {
+                border-color: transparent;
+            }
+        }
+    }
+
+    &.link_disabled {
+        color: var(--color-dark-indigo-30);
+    }
+}
+
+.link_theme_alfa-on-color,
+.link_theme_alfa-on-white {
     &.link_disabled,
     &.link_checked {
-        color: var(--color-content-minor-alfa-on-white);
-
         .link__text {
             border-color: transparent;
         }
+    }
+
+    &.link_checked {
+        font-weight: var(--font-weight-medium);
     }
 }

@@ -2,22 +2,110 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
 
 .radio-group {
     display: inline-block;
     outline: none;
     font-family: var(--font);
-    font-weight: var(--font-weight);
+    font-weight: var(--font-weight-normal);
+
+    &,
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+
+    &__inner {
+        display: inline-table;
+        width: 100%;
+    }
+
+    &__top {
+        display: inline-block;
+        line-height: var(--line-height-normal);
+        word-break: normal;
+    }
+
+    &__sub {
+        display: table-caption;
+        caption-side: bottom;
+        white-space: normal;
+    }
 
     .radio_size_s,
     .radio_size_m {
-        margin-bottom: 10px;
+        &:not(:last-of-type) {
+            margin-bottom: 10px;
+        }
     }
 
     .radio_size_l,
     .radio_size_xl {
-        margin-bottom: 12px;
+        &:not(:last-of-type) {
+            margin-bottom: var(--gap-s);
+        }
+    }
+
+    &_size_s {
+        .radio-group__top {
+            margin-bottom: 10px;
+        }
+
+        .radio-group__sub {
+            margin-top: 10px;
+        }
+
+        .radio-group__top,
+        .radio-group__sub {
+            font-size: var(--font-size-xs);
+        }
+    }
+
+    &_size_m {
+        .radio-group__top {
+            margin-bottom: 10px;
+        }
+
+        .radio-group__sub {
+            margin-top: 10px;
+        }
+
+        .radio-group__top,
+        .radio-group__sub {
+            font-size: var(--font-size-s);
+        }
+    }
+
+    &_size_l {
+        .radio-group__top {
+            margin-bottom: var(--gap-s);
+        }
+
+        .radio-group__sub {
+            margin-top: var(--gap-s);
+        }
+
+        .radio-group__top,
+        .radio-group__sub {
+            font-size: var(--font-size-m);
+        }
+    }
+
+    &_size_xl {
+        .radio-group__top {
+            margin-bottom: var(--gap-s);
+        }
+
+        .radio-group__sub {
+            margin-top: var(--gap-s);
+        }
+
+        .radio-group__top,
+        .radio-group__sub {
+            font-size: var(--font-size-l);
+        }
     }
 
     &_type_normal {
@@ -26,71 +114,51 @@
         }
     }
 
-    &.radio-group_width_available {
+    &&_type_button {
+        .radio-group__box {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: calc((var(--gap-s) / 2) * -1);
+            margin-bottom: calc((var(--gap-s) / 2) * -1);
+        }
+
         .radio {
-            margin-right: -1px;
+            width: auto;
+            flex-grow: 0;
+            margin-right: calc(var(--gap-s) / 2);
+            margin-bottom: calc(var(--gap-s) / 2);
         }
     }
-}
 
-.radio-group__label {
-    margin-bottom: 10px;
-    font-size: var(--font-size-m);
-    font-weight: var(--font-weight-accent);
-}
+    &&_width_available {
+        display: block;
 
-.radio-group_invalid {
-    padding-left: 10px;
-    border-left: 1px solid var(--color-error-translucent);
-
-    .radio-group__sub {
-        display: table-caption;
-        caption-side: bottom;
-        padding-top: 5px;
-        color: var(--color-error);
-        font-size: var(--font-size-s);
-    }
-
-    &.radio-group_type_normal .radio-group__sub {
-        padding-top: 0;
-    }
-}
-
-.radio-group_type_button {
-    white-space: nowrap;
-
-    .radio {
-        margin-bottom: 0;
-    }
-}
-
-.radio-group_type_line {
-    .radio {
-        margin-bottom: 0;
-    }
-
-    .radio_size_s,
-    .radio_size_m {
-        margin-right: 13px;
-    }
-
-    .radio_size_l,
-    .radio_size_xl {
-        margin-right: 15px;
-    }
-
-    .radio:last-child {
-        margin-right: 0;
-    }
-}
-
-.radio-group_width_available {
-    display: flex;
-
-    &.radio-group_invalid {
-        .radio-group__sub {
-            padding-left: 10px;
-            border-left: 1px solid var(--color-error-translucent);
+        .radio {
+            flex-grow: 1;
         }
+    }
+
+    &&_type_line {
+        .radio {
+            margin-bottom: 0;
+        }
+
+        .radio_size_s,
+        .radio_size_m {
+            margin-right: 13px;
+        }
+
+        .radio_size_l,
+        .radio_size_xl {
+            margin-right: 15px;
+        }
+
+        .radio:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &_invalid {
+        padding-left: 10px;
     }
 }

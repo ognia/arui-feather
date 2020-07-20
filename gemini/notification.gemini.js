@@ -1,59 +1,53 @@
-import Icon from '../src/icon';
+import IconOk from '../src/icon/ui/ok';
 import Notification from '../src/notification';
-import ThemeProvider from '../src/theme-provider';
 
 const NAME = 'notification';
-const THEMES = ['alfa-on-white', 'alfa-on-color'];
 
 const PROP_SETS = [
     {
         visible: true,
         status: 'ok',
         offset: 10,
-        title: 'Notification title'
+        stickTo: 'left',
+        title: 'Notification title',
     },
     {
         visible: true,
         status: 'fail',
-        offset: 100,
-        stickTo: 'right'
+        offset: 10,
+        stickTo: 'left',
     },
     {
         visible: true,
         status: 'error',
-        offset: 190
+        offset: 10,
+        stickTo: 'left',
     },
     {
         visible: true,
-        icon: <Icon icon='search' theme='alfa-on-color' size='m' />,
+        icon: <IconOk name="action-ok" colored={ true } size="m" />,
         status: 'ok',
-        stickTo: 'right',
-        offset: 10
-    }
+        offset: 10,
+        stickTo: 'left',
+    },
 ];
 
-geminiReact.suite(NAME, function () {
-    THEMES.forEach((theme) => {
-        let themeSelector = `${NAME}_theme_${theme}`;
+geminiReact.suite(NAME, () => {
+    PROP_SETS.forEach((set, index) => {
+        const selector = `${NAME}_prop-set_${index + 1}`;
 
-        PROP_SETS.forEach((set, index) => {
-            let selector = `${themeSelector}.${NAME}_prop-set_${index + 1}`;
+        geminiReact.suite(selector, (suite) => {
+            const props = { ...set };
+            const template = (
+                <Notification { ...props }>
+                    Notification message
+                </Notification>
+            );
 
-            geminiReact.suite(selector, function (suite) {
-                let props = { theme, ...set };
-                let template = (
-                    <ThemeProvider theme={ theme }>
-                        <Notification { ...props }>
-                            Notification message
-                        </Notification>
-                    </ThemeProvider>
-                );
-
-                suite
-                    .setExtraCaptureElements(['.notification'])
-                    .render(template)
-                    .capture('plain');
-            });
+            suite
+                .setExtraCaptureElements(['.notification'])
+                .render(template)
+                .capture('plain');
         });
     });
 });

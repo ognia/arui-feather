@@ -3,25 +3,25 @@ import Label from '../src/label';
 
 const NAME = 'label';
 const THEMES = ['alfa-on-color', 'alfa-on-white'];
-const SIZES = process.env.ALL_SIZES ? ['s', 'm', 'l', 'xl'] : ['m'];
+const SIZES = process.env.ALL_SIZES ? ['s', 'm', 'l', 'xl', '2xl', '3xl', '4xl'] : ['m'];
 
 const PROP_SETS = [
     {},
-    { isNoWrap: true }
+    { isNoWrap: true },
 ];
 
-geminiReact.suite(NAME, function () {
+geminiReact.suite(NAME, () => {
     THEMES.forEach((theme) => {
-        let themeSelector = `${NAME}_theme_${theme}`;
+        const themeSelector = `${NAME}_theme_${theme}`;
 
         SIZES.forEach((size) => {
             PROP_SETS.forEach((set, index) => {
-                let sizeSelector = `${NAME}_size_${size}`;
-                let selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
+                const sizeSelector = `${NAME}_size_${size}`;
+                const selector = `${themeSelector}.${sizeSelector}.${NAME}_prop-set_${index + 1}`;
 
-                geminiReact.suite(selector, function (suite) {
-                    let props = { theme, size, ...set };
-                    let template = (
+                geminiReact.suite(selector, (suite) => {
+                    const props = { theme, size, ...set };
+                    const template = (
                         <GeminiBox theme={ theme }>
                             <Label { ...props }>
                                 Label

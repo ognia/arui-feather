@@ -2,14 +2,21 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
 
 .menu-item {
     position: relative;
-    font-family: var(--font);
     cursor: pointer;
-    line-height: 1.4;
+    font-family: var(--font);
+    line-height: var(--line-height-normal);
     transition: background 200ms ease;
+
+    &,
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
 
     &_disabled {
         cursor: default;

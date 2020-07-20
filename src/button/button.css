@@ -2,61 +2,82 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import '../vars.css';
+@import "../vars.css";
 
 .button {
-    font-family: var(--font);
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
 
     position: relative;
-    display: inline-block;
-    box-sizing: border-box;
-
-    padding: 0;
     margin: 0;
-
-    user-select: none;
-
-    border-radius: var(--border-radius-control);
-
+    padding: 0;
+    cursor: pointer;
     outline: 0;
-
+    user-select: none;
+    font-family: var(--font);
     text-align: center;
     white-space: nowrap;
+    transition-duration: 200ms;
+    transition-property: background, border-color, color, width;
+    transition-timing-function: ease;
+    border-radius: var(--border-radius-control);
 
-    transition: all 200ms ease;
-
-    cursor: pointer;
-
-    & + & {
-        margin-left: 10px;
+    &,
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
     }
 
     &::-moz-focus-inner {
         padding: 0;
-
         border: 0;
     }
 
+    & + & {
+        margin-left: var(--gap-s);
+    }
+
+    &__addon {
+        flex: 0 0 auto;
+
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+
+    &__content {
+        flex: 1 0 auto;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+
     &__text {
-        position: relative;
-        display: inline-block;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-        vertical-align: top;
-
-        font-weight: var(--font-weight);
+        font-weight: var(--font-weight-normal);
+        line-height: normal;
+        padding: 0 0 1px;
     }
 
     &__icon {
-        position: relative;
-        display: inline-block;
-        vertical-align: middle;
-        line-height: 1;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+
         padding-right: 10px;
     }
 
     &_width_available {
+        display: flex;
         width: 100%;
     }
 
@@ -79,8 +100,8 @@
 
     &_view_action &__text,
     &_view_extra &__text,
-    &_view_other &__text {
-        font-weight: var(--font-weight-heavy-accent);
+    &_view_rounded &__text {
+        font-weight: var(--font-weight-medium);
     }
 
     & > :last-child {
@@ -88,113 +109,68 @@
     }
 
     &_size_s {
-        min-height: 30px;
+        height: 30px;
         padding: 0 15px;
         font-size: var(--font-size-s);
-        line-height: 28px;
     }
 
     &_size_s &__icon {
-        margin-left: -4px;
+        margin-left: var(--gap-2xs-neg);
     }
 
     &_size_m {
-        min-height: 40px;
-        padding: 0 20px;
+        height: 40px;
+        padding: 0 var(--gap-l);
         font-size: var(--font-size-m);
-        line-height: 38px;
     }
 
     &_size_m &__icon {
-        margin-left: -8px;
+        margin-left: var(--gap-xs-neg);
     }
 
     &_size_l {
-        min-height: 50px;
+        height: 50px;
         padding: 0 25px;
         font-size: var(--font-size-l);
-        line-height: 48px;
     }
 
     &_size_l &__icon {
-        margin-left: -12px;
-        min-width: 2px;
+        margin-left: var(--gap-s-neg);
     }
 
     &_size_xl {
-        min-height: 60px;
+        height: 60px;
         padding: 0 30px;
         font-size: var(--font-size-xl);
-        line-height: 58px;
     }
 
     &_size_xl &__icon {
-        margin-left: -16px;
-        min-width: 6px;
-    }
-}
-
-.control-group {
-    .button {
-        position: relative;
-        border-radius: 0;
+        margin-left: var(--gap-m-neg);
     }
 
-    > .button:first-of-type,
-    > :first-of-type .button {
-        border-radius: var(--border-radius-control) 0 0 var(--border-radius-control);
-    }
-
-    > .button:last-of-type,
-    > :last-of-type .button {
-        border-radius: 0 var(--border-radius-control) var(--border-radius-control) 0;
-    }
-
-    > :only-child .button {
-        border-radius: var(--border-radius-control);
-    }
-
-    &.checkbox-group_theme_alfa-on-color,
-    &.checkbox-group_theme_alfa-on-white,
-    &.radio-group_theme_alfa-on-color,
-    &.radio-group_theme_alfa-on-white {
-        outline: none;
-
-        .button {
-            margin-right: -1px;
+    &_view_rounded {
+        &.button_size_s {
+            height: calc(30px * 1.1);
+            padding: 0 calc(15px * 1.5);
+            border-radius: calc(15px * 1.1);
         }
 
-        .button__text {
-            font-weight: var(--font-weight);
+        &.button_size_m {
+            height: calc(40px * 1.1);
+            padding: 0 calc(20px * 1.5);
+            border-radius: calc(20px * 1.1);
         }
 
-        .button_checked {
-            z-index: 1;
+        &.button_size_l {
+            height: calc(50px * 1.1);
+            padding: 0 calc(25px * 1.5);
+            border-radius: calc(25px * 1.1);
         }
 
-        .button_focused {
-            z-index: 2;
+        &.button_size_xl {
+            height: calc(60px * 1.1);
+            padding: 0 calc(30px * 1.5);
+            border-radius: calc(30px * 1.1);
         }
-
-        .button_hovered {
-            z-index: 3;
-        }
-    }
-
-    &:not(.control-group_invalid) {
-        .checkbox-group_theme_alfa-on-color,
-        .checkbox-group_theme_alfa-on-white,
-        .radio-group_theme_alfa-on-color,
-        .radio-group_theme_alfa-on-white {
-            .button {
-                border-right-color: transparent;
-            }
-        }
-    }
-}
-
-.control-group_invalid {
-    .button {
-        border-color: var(--color-error-translucent);
     }
 }
